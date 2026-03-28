@@ -116,7 +116,8 @@ export const shadows = {
  */
 export const typography = {
   fontFamily: {
-    sans: 'var(--font-geist-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+    sans: 'var(--font-esamanru), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+    display: 'var(--font-memoment), sans-serif',
     mono: 'var(--font-geist-mono), "Fira Code", monospace',
   },
   fontSize: {
