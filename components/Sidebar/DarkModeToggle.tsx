@@ -65,7 +65,13 @@ export const DarkModeToggle = ({ isDarkMode = false }: DarkModeToggleProps) => {
   return (
     <Wrapper>
       <Label>Dark Mode</Label>
-      <ToggleButton isDark={isDark} onClick={toggle} aria-label="다크모드 토글" />
+      <ToggleButton
+        isDark={isDark}
+        onClick={toggle}
+        role="switch"
+        aria-checked={isDark}
+        aria-label={isDark ? "라이트 모드로 전환" : "다크 모드로 전환"}
+      />
     </Wrapper>
   );
 };
