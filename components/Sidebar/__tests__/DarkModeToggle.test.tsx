@@ -13,7 +13,7 @@ describe("DarkModeToggle", () => {
 
   afterEach(() => {
     delete document.documentElement.dataset.theme;
-    document.cookie = `${THEME_COOKIE_KEY}=; max-age=0`;
+    document.cookie = `${THEME_COOKIE_KEY}=; path=/; max-age=0`;
   });
 
   it("Dark Mode 레이블을 렌더링한다", () => {
