@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 
-import { THEME_DARK, THEME_LIGHT } from "@/constants/theme";
+import { THEME_COOKIE_KEY, THEME_DARK, THEME_LIGHT } from "@/constants/theme";
 
 import { DarkModeToggle } from "../DarkModeToggle";
 
@@ -13,7 +13,7 @@ describe("DarkModeToggle", () => {
 
   afterEach(() => {
     delete document.documentElement.dataset.theme;
-    document.cookie = "theme=; max-age=0";
+    document.cookie = `${THEME_COOKIE_KEY}=; path=/; max-age=0`;
   });
 
   it("Dark Mode 레이블을 렌더링한다", () => {
@@ -36,6 +36,7 @@ describe("DarkModeToggle", () => {
     render(<DarkModeToggle />);
     await userEvent.click(screen.getByRole("switch"));
     expect(document.documentElement.dataset.theme).toBe(THEME_DARK);
+    expect(document.cookie).toContain(`${THEME_COOKIE_KEY}=${THEME_DARK}`);
   });
 
   it("다크모드에서 토글 클릭 시 data-theme을 light로 변경한다", async () => {
@@ -43,5 +44,6 @@ describe("DarkModeToggle", () => {
     render(<DarkModeToggle isDarkMode={true} />);
     await userEvent.click(screen.getByRole("switch"));
     expect(document.documentElement.dataset.theme).toBe(THEME_LIGHT);
+    expect(document.cookie).toContain(`${THEME_COOKIE_KEY}=${THEME_LIGHT}`);
   });
 });

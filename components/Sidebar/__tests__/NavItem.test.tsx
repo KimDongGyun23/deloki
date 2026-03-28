@@ -56,4 +56,10 @@ describe("NavItem", () => {
     render(<NavItem href="/" label="Dashboard" Icon={MockIcon} />);
     expect(screen.getByRole("link")).not.toHaveAttribute("aria-current");
   });
+
+  it("sibling route(/notes-archive)에서 /notes 메뉴가 active 처리되지 않는다 (경계 없는 prefix 오탐 방지)", () => {
+    vi.mocked(usePathname).mockReturnValue("/notes-archive");
+    render(<NavItem href="/notes" label="Notes" Icon={MockIcon} />);
+    expect(screen.getByRole("link")).not.toHaveAttribute("aria-current");
+  });
 });
