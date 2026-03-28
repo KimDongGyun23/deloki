@@ -3,7 +3,10 @@ import { ReactNode } from "react";
 import type { Metadata } from "next";
 import { Geist_Mono } from "next/font/google";
 import localFont from "next/font/local";
+import { cookies } from "next/headers";
 
+import { Sidebar } from "@/components/Sidebar/Sidebar";
+import { THEME_COOKIE_KEY, THEME_DARK, THEME_LIGHT } from "@/constants/theme";
 import { EmotionRegistry } from "@/providers/EmotionRegistry";
 import { GlobalStyles } from "@/styles/GlobalStyles";
 
@@ -33,13 +36,25 @@ export const metadata: Metadata = {
   description: "Deloki",
 };
 
-export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
+export default async function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
+  // 쿠키에서 테마 읽기
+  const theme = (await cookies()).get(THEME_COOKIE_KEY)?.value ?? THEME_LIGHT;
+  const isDarkMode = theme === THEME_DARK;
+
   return (
-    <html lang="ko" className={`${esamanru.variable} ${memoment.variable} ${geistMono.variable}`}>
+    <html
+      lang="ko"
+      data-theme={theme}
+      className={`${esamanru.variable} ${memoment.variable} ${geistMono.variable}`}
+      suppressHydrationWarning
+    >
       <body>
         <EmotionRegistry>
           <GlobalStyles />
-          {children}
+          <div style={{ display: "flex", minHeight: "100vh" }}>
+            <Sidebar isDarkMode={isDarkMode} />
+            <main style={{ flex: 1 }}>{children}</main>
+          </div>
         </EmotionRegistry>
       </body>
     </html>

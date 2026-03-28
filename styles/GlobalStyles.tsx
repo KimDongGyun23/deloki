@@ -35,11 +35,16 @@ const globalStyles = css`
     ${toCssVars(colors.light)}
   }
 
+  /* 시스템 설정 기반 다크모드 (data-theme 미설정 시 fallback) */
   @media (prefers-color-scheme: dark) {
-    :root {
-      // Dark Mode - theme.ts colors.dark에서 자동 생성
+    :root:not([data-theme="light"]) {
       ${toCssVars(colors.dark)}
     }
+  }
+
+  /* 토글로 명시 설정된 다크모드 */
+  [data-theme="dark"] {
+    ${toCssVars(colors.dark)}
   }
 
   body {

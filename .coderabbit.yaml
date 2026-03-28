@@ -10,6 +10,8 @@ reviews:
   profile: assertive
   assess_linked_issues: true
   request_changes_workflow: false
+  poem: false
+  high_level_summary: false
   auto_review:
     enabled: true
     drafts: false
