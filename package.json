@@ -10,7 +10,8 @@
     "lint:fix": "eslint --fix",
     "test": "vitest",
     "test:ui": "vitest --ui",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "prepare": "husky"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -19,6 +20,9 @@
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "recoil": "^0.7.7"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": "eslint --fix"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.9.1",
@@ -31,7 +35,9 @@
     "eslint": "^9",
     "eslint-config-next": "16.2.1",
     "eslint-plugin-simple-import-sort": "^12.1.1",
+    "husky": "^9.1.7",
     "jsdom": "^28.1.0",
+    "lint-staged": "^16.4.0",
     "typescript": "^5",
     "vitest": "^4.1.2"
   }
