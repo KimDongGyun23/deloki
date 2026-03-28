@@ -8,9 +8,14 @@ export default defineConfig({
     environment: "jsdom",
     globals: true,
     setupFiles: ["./vitest.setup.ts"],
+    coverage: {
+      provider: "v8",
+      reporter: ["text", "lcov"],
+      reportsDirectory: "./coverage",
+      exclude: ["node_modules", ".next", "*.config.*", "*.setup.*"],
+    },
   },
   resolve: {
-    // tsconfig의 paths와 동기화: "@/*" → "./*"
     alias: {
       "@": path.resolve(__dirname, "."),
     },
