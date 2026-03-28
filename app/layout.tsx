@@ -6,7 +6,7 @@ import localFont from "next/font/local";
 import { cookies } from "next/headers";
 
 import { Sidebar } from "@/components/Sidebar/Sidebar";
-import { THEME_COOKIE_KEY, THEME_DARK } from "@/constants/theme";
+import { THEME_COOKIE_KEY, THEME_DARK, THEME_LIGHT } from "@/constants/theme";
 import { EmotionRegistry } from "@/providers/EmotionRegistry";
 import { GlobalStyles } from "@/styles/GlobalStyles";
 
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   // 쿠키에서 테마 읽기
-  const theme = (await cookies()).get(THEME_COOKIE_KEY)?.value ?? "light";
+  const theme = (await cookies()).get(THEME_COOKIE_KEY)?.value ?? THEME_LIGHT;
   const isDarkMode = theme === THEME_DARK;
 
   return (
