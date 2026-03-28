@@ -50,6 +50,7 @@ const tagStyle = css`
   align-items: center;
   padding: ${spacing.xs} ${spacing.sm};
   border-radius: ${borderRadius.lg};
+  font-family: ${typography.fontFamily.display};
   font-size: ${typography.fontSize.sm};
   font-weight: ${typography.fontWeight.semibold};
 `;
