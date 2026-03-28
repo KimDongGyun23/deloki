@@ -27,7 +27,8 @@ type NavItemProps = {
  */
 export const NavItem = ({ href, label, Icon }: NavItemProps) => {
   const pathname = usePathname();
-  const isActive = href === "/" ? pathname === "/" : pathname.startsWith(href);
+  const isActive =
+    href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(`${href}/`);
 
   return (
     <StyledLink href={href} isActive={isActive} aria-current={isActive ? "page" : undefined}>
