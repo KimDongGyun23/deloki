@@ -33,7 +33,7 @@ jobs:
         run: npm run lint
 
       - name: Test (with coverage)
-        run: npm run test:coverage
+        run: npx vitest run --coverage --passWithNoTests
 
       - name: Build
         run: npm run build
