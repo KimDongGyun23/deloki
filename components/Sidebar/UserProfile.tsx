@@ -15,11 +15,13 @@ type UserProfileProps = {
  */
 export const UserProfile = ({ name }: UserProfileProps) => {
   // 이름 첫 글자를 아바타에 사용
-  const initial = name.charAt(0).toUpperCase();
+  const initial = name.charAt(0)?.toUpperCase() || "?";
 
   return (
     <ProfileCard>
-      <Avatar>{initial}</Avatar>
+      <Avatar aria-label={`${name} 프로필 아바타`} role="img">
+        {initial}
+      </Avatar>
       <Name>{name}</Name>
     </ProfileCard>
   );
