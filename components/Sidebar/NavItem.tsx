@@ -1,7 +1,6 @@
 "use client";
 
-import { ElementType } from "react";
-import { SVGProps } from "react";
+import { ElementType, SVGProps } from "react";
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";

@@ -29,7 +29,7 @@ const subscribe = (callback: () => void) => {
  * @returns 현재 다크 모드 여부 (true: 다크 모드, false: 라이트 모드)
  */
 const getSnapshot = () => {
-  const theme = document.documentElement.getAttribute("data-theme");
+  const theme = document.documentElement.dataset.theme;
   return theme === THEME_DARK;
 };
 
@@ -59,7 +59,7 @@ export const DarkModeToggle = ({ isDarkMode = false }: DarkModeToggleProps) => {
     const next = !isDark;
     const theme = next ? THEME_DARK : THEME_LIGHT;
     document.cookie = `${THEME_COOKIE_KEY}=${theme}; path=/; max-age=31536000; SameSite=Lax`;
-    document.documentElement.setAttribute("data-theme", theme);
+    document.documentElement.dataset.theme = theme;
   }, [isDark]);
 
   return (
