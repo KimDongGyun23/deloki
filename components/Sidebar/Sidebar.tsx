@@ -60,7 +60,9 @@ export const Sidebar = ({ userName = "Loki", isDarkMode, onLogout = () => {} }: 
 
       {/* 하단 영역 */}
       <BottomArea>
-        <LogoutButton onClick={onLogout}>Logout</LogoutButton>
+        <LogoutButton type="button" onClick={onLogout}>
+          Logout
+        </LogoutButton>
         <DarkModeToggle isDarkMode={isDarkMode} />
         <UserProfile name={userName} />
       </BottomArea>
