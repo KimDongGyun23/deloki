@@ -1,7 +1,3 @@
-import styled from "@emotion/styled";
-
-import { borderRadius, spacing, typography } from "@/styles/theme";
-
 type UserProfileProps = {
   name: string;
 };
@@ -18,41 +14,17 @@ export const UserProfile = ({ name }: UserProfileProps) => {
   const initial = name.charAt(0)?.toUpperCase() || "?";
 
   return (
-    <ProfileCard>
-      <Avatar aria-label={`${name} 프로필 아바타`} role="img">
+    <div className="mx-2 flex items-center gap-4 rounded-lg bg-muted px-4 py-2">
+      <div
+        aria-label={`${name} 프로필 아바타`}
+        role="img"
+        className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-semibold text-card"
+      >
         {initial}
-      </Avatar>
-      <Name>{name}</Name>
-    </ProfileCard>
+      </div>
+      <span className="text-sm font-medium text-foreground">
+        {name}
+      </span>
+    </div>
   );
 };
-
-const ProfileCard = styled.div`
-  display: flex;
-  align-items: center;
-  gap: ${spacing.md};
-  padding: ${spacing.sm} ${spacing.md};
-  border-radius: ${borderRadius.sm};
-  background-color: var(--color-muted);
-  margin: 0 ${spacing.sm};
-`;
-
-const Avatar = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background-color: var(--color-primary);
-  color: var(--color-card);
-  font-size: ${typography.fontSize.sm};
-  font-weight: ${typography.fontWeight.semibold};
-  flex-shrink: 0;
-`;
-
-const Name = styled.span`
-  font-size: ${typography.fontSize.sm};
-  font-weight: ${typography.fontWeight.medium};
-  color: var(--color-foreground);
-`;

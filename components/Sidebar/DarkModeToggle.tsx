@@ -2,10 +2,8 @@
 
 import { useCallback, useSyncExternalStore } from "react";
 
-import styled from "@emotion/styled";
-
 import { THEME_COOKIE_KEY, THEME_DARK, THEME_LIGHT } from "@/constants/theme";
-import { spacing, typography } from "@/styles/theme";
+import { cn } from "@/lib/cn";
 
 /**
  * 다크 모드 상태를 구독하는 함수
@@ -33,6 +31,16 @@ const getSnapshot = () => {
   return theme === THEME_DARK;
 };
 
+/**
+ * 쿠키 저장 함수
+ * - 테마 정보를 쿠키에 저장하여 페이지 간 상태 유지
+ *
+ * @param theme 저장할 테마 값 (THEME_DARK 또는 THEME_LIGHT)
+ */
+const setThemeCookie = (theme: string) => {
+  document.cookie = `${THEME_COOKIE_KEY}=${theme}; path=/; max-age=31536000; SameSite=Lax`;
+};
+
 type DarkModeToggleProps = {
   isDarkMode?: boolean;
 };
@@ -58,55 +66,24 @@ export const DarkModeToggle = ({ isDarkMode = false }: DarkModeToggleProps) => {
   const toggle = useCallback(() => {
     const next = !isDark;
     const theme = next ? THEME_DARK : THEME_LIGHT;
-    document.cookie = `${THEME_COOKIE_KEY}=${theme}; path=/; max-age=31536000; SameSite=Lax`;
+    setThemeCookie(theme);
     document.documentElement.dataset.theme = theme;
   }, [isDark]);
 
   return (
-    <Wrapper>
-      <Label>Dark Mode</Label>
-      <ToggleButton
-        isDark={isDark}
+    <div className="flex items-center justify-between px-4 py-1">
+      <span className="text-muted-foreground text-sm">Dark Mode</span>
+      <button
         onClick={toggle}
         role="switch"
         aria-checked={isDark}
         aria-label={isDark ? "라이트 모드로 전환" : "다크 모드로 전환"}
+        className={cn(
+          "relative h-5.5 w-10 shrink-0 rounded-[11px] transition-colors duration-200",
+          "after:bg-card after:absolute after:top-0.75 after:h-4 after:w-4 after:rounded-full after:transition-[left] after:duration-200 after:content-['']",
+          isDark ? "bg-primary after:left-5.25" : "bg-accent after:left-0.75",
+        )}
       />
-    </Wrapper>
+    </div>
   );
 };
-
-const Wrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: ${spacing.xs} ${spacing.md};
-`;
-
-const Label = styled.span`
-  font-size: ${typography.fontSize.sm};
-  color: var(--color-muted-foreground);
-`;
-
-const ToggleButton = styled.button<{ isDark: boolean }>`
-  position: relative;
-  width: 40px;
-  height: 22px;
-  border-radius: 11px;
-  background-color: ${({ isDark }) => (isDark ? "var(--color-primary)" : "var(--color-accent)")};
-  transition: background-color 0.2s ease;
-  flex-shrink: 0;
-
-  /* 토글 원형 핸들 */
-  &::after {
-    content: "";
-    position: absolute;
-    top: 3px;
-    left: ${({ isDark }) => (isDark ? "21px" : "3px")};
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    background-color: var(--color-card);
-    transition: left 0.2s ease;
-  }
-`;
