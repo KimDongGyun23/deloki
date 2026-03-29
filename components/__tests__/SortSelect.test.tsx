@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
@@ -191,6 +191,19 @@ describe("SortSelect", () => {
       await userEvent.keyboard("{Escape}");
 
       expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
+    });
+
+    it("Escape가 아닌 키 입력 시 드롭다운이 유지된다", async () => {
+      render(<SortSelect selected="newest" />);
+
+      const trigger = screen.getByRole("button", { name: /최신순/ });
+
+      await userEvent.click(trigger);
+      expect(screen.getByRole("listbox")).toBeInTheDocument();
+
+      fireEvent.keyDown(trigger, { key: "Tab" });
+
+      expect(screen.getByRole("listbox")).toBeInTheDocument();
     });
   });
 
