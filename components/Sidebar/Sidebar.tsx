@@ -1,6 +1,13 @@
 "use client";
 
-import { ChartIcon, ClipIcon, HomeIcon, LogoIcon, NoteIcon, SearchIcon } from "@/components/Icons";
+import {
+  ChartIcon,
+  ClipIcon,
+  HomeIcon,
+  LogoIcon,
+  NoteIcon,
+  SearchIcon,
+} from "@/components/Icons";
 
 import { DarkModeToggle } from "./DarkModeToggle";
 import { NavItem } from "./NavItem";
@@ -33,20 +40,24 @@ type SidebarProps = {
  * @param onLogout 로그아웃 핸들러 함수
  * @param isDarkMode 초기 다크 모드 상태 (SSR 렌더링 시 클로저로 사용)
  */
-export const Sidebar = ({ userName = "Loki", isDarkMode, onLogout = () => {} }: SidebarProps) => {
+export const Sidebar = ({
+  userName = "Loki",
+  isDarkMode,
+  onLogout = () => {},
+}: SidebarProps) => {
   return (
-    <aside className="flex w-65 min-h-screen shrink-0 flex-col gap-6 border-r border-secondary bg-card px-2 py-6 shadow-sm">
+    <aside className="border-secondary bg-card flex min-h-screen w-65 shrink-0 flex-col gap-6 border-r px-2 py-6 shadow-sm">
       {/* 로고 */}
       <div className="flex items-center gap-4 px-4 py-2">
-        <div className="flex aspect-square items-center justify-center rounded-lg bg-primary-light text-primary">
+        <div className="bg-primary-light text-primary flex aspect-square h-full items-center justify-center rounded-lg">
           <LogoIcon />
         </div>
 
         <div className="flex flex-col py-1">
-          <span className="text-base font-bold leading-tight text-foreground">
+          <span className="text-foreground text-base leading-tight font-bold">
             De Loki
           </span>
-          <span className="font-display text-xs text-muted-foreground">
+          <span className="font-display text-muted-foreground text-xs">
             지식 아카이브
           </span>
         </div>
@@ -60,11 +71,11 @@ export const Sidebar = ({ userName = "Loki", isDarkMode, onLogout = () => {} }: 
       </nav>
 
       {/* 하단 영역 */}
-      <div className="flex flex-col gap-2 border-t border-secondary pt-4">
+      <div className="border-secondary flex flex-col gap-2 border-t pt-4">
         <button
           type="button"
           onClick={onLogout}
-          className="px-4 py-1 text-left text-sm text-muted-foreground hover:text-foreground"
+          className="text-muted-foreground hover:text-foreground px-4 py-1 text-left text-sm"
         >
           Logout
         </button>
