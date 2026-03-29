@@ -39,6 +39,7 @@ export const CategoryFilter = ({ selected }: CategoryFilterProps) => {
         <button
           key={value}
           type="button"
+          aria-pressed={value === selected}
           onClick={() => handleClick(value)}
           className={cn(
             "font-display rounded-xl px-3 py-1 text-sm font-medium transition-[background-color,color] duration-150",

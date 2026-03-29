@@ -30,19 +30,32 @@ describe("CategoryFilter", () => {
     });
   });
 
-  it("선택된 카테고리 버튼은 활성 스타일을 가진다", () => {
+  it("선택된 카테고리 버튼은 활성 스타일과 aria-pressed=true를 가진다", () => {
     render(<CategoryFilter selected="frontend" />);
 
     const activeButton = screen.getByRole("button", { name: "프론트엔드" });
     expect(activeButton).toHaveClass("bg-primary");
+    expect(activeButton).toHaveAttribute("aria-pressed", "true");
   });
 
-  it("선택되지 않은 카테고리 버튼은 비활성 스타일을 가진다", () => {
+  it("선택되지 않은 카테고리 버튼은 비활성 스타일과 aria-pressed=false를 가진다", () => {
     render(<CategoryFilter selected="all" />);
 
     const inactiveButton = screen.getByRole("button", { name: "프론트엔드" });
     expect(inactiveButton).toHaveClass("bg-secondary");
     expect(inactiveButton).not.toHaveClass("bg-primary");
+    expect(inactiveButton).toHaveAttribute("aria-pressed", "false");
+  });
+
+  it("선택된 카테고리 버튼은 하나뿐이다", () => {
+    render(<CategoryFilter selected="backend" />);
+
+    const pressedButtons = screen
+      .getAllByRole("button")
+      .filter((btn) => btn.getAttribute("aria-pressed") === "true");
+
+    expect(pressedButtons).toHaveLength(1);
+    expect(pressedButtons[0]).toHaveAccessibleName("백엔드");
   });
 
   it("카테고리 클릭 시 URL searchParams를 업데이트한다", async () => {
