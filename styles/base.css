@@ -12,8 +12,12 @@ button {
   outline-offset: 2px;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+/* data-theme 미설정 시 기본값은 light */
+html {
+  color-scheme: light;
+}
+
+/* data-theme="dark" 명시 시 dark */
+html[data-theme="dark"] {
+  color-scheme: dark;
 }
