@@ -65,4 +65,19 @@ describe("Sidebar", () => {
     await userEvent.click(screen.getByText("Logout"));
     expect(onLogout).toHaveBeenCalledTimes(1);
   });
+
+  it("onLogout prop 없이 Logout 버튼 클릭 시 에러 없이 동작한다", async () => {
+    render(<Sidebar />);
+    await userEvent.click(screen.getByText("Logout"));
+    expect(screen.getByText("Logout")).toBeInTheDocument();
+  });
+
+  it("isDarkMode prop을 DarkModeToggle에 전달한다", () => {
+    document.documentElement.dataset.theme = "dark";
+    render(<Sidebar isDarkMode={true} />);
+    expect(
+      screen.getByRole("switch", { name: "라이트 모드로 전환" }),
+    ).toBeInTheDocument();
+    delete document.documentElement.dataset.theme;
+  });
 });
