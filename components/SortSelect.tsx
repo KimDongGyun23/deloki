@@ -10,6 +10,9 @@ import { cn } from "@/lib/cn";
 
 import { ChevronIcon } from "./Icons";
 
+// listbox id - SortTriggerButton과 SortOptions 연결에 사용
+const SORT_LISTBOX_ID = "sort-listbox";
+
 type SortTriggerButtonProps = {
   isOpen: boolean;
   selectedLabel: string;
@@ -31,6 +34,9 @@ const SortTriggerButton = ({
   return (
     <button
       type="button"
+      aria-expanded={isOpen}
+      aria-haspopup="listbox"
+      aria-controls={SORT_LISTBOX_ID}
       onClick={handleOpen}
       className="bg-secondary text-foreground focus:outline-primary flex cursor-pointer items-center gap-1.5 rounded-md px-3 py-1 text-sm focus:outline-2 focus:outline-offset-2"
     >
@@ -64,13 +70,19 @@ const SortOptions = ({ isOpen, selected, handleSelect }: SortOptionsProps) => {
   if (!isOpen) return null;
 
   return (
-    <ul className="bg-secondary absolute right-0 z-10 mt-1 min-w-full rounded-md shadow-md">
+    <ul
+      role="listbox"
+      id={SORT_LISTBOX_ID}
+      className="bg-secondary absolute right-0 z-10 mt-1 min-w-full rounded-md shadow-md"
+    >
       {SORT_OPTIONS.map(({ label, value }) => (
-        <li key={value}>
+        <li key={value} role="presentation">
           <button
             type="button"
+            role="option"
+            aria-selected={value === selected}
             onClick={() => handleSelect(value)}
-            className={`text-foreground hover:bg-primary/10 focus-visible:ring-primary/30 w-full cursor-pointer px-3 py-1.5 text-left text-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-inset ${
+            className={`text-foreground hover:bg-primary/10 focus-visible:ring-primary/30 w-full cursor-pointer px-3 py-1.5 text-left text-sm transition-colors focus-visible:ring-1 focus-visible:outline-none focus-visible:ring-inset ${
               value === selected ? "text-primary font-medium" : ""
             }`}
           >
@@ -136,7 +148,13 @@ export const SortSelect = ({ selected }: SortSelectProps) => {
   return (
     <div className="font-display flex items-center gap-2">
       <span className="text-muted-foreground text-md">정렬:</span>
-      <div ref={containerRef} className="relative">
+      <div
+        ref={containerRef}
+        className="relative"
+        onKeyDown={(e) => {
+          if (e.key === "Escape") setIsOpen(false);
+        }}
+      >
         <SortTriggerButton
           isOpen={isOpen}
           selectedLabel={selectedLabel}

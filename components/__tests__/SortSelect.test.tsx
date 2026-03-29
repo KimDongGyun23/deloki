@@ -40,7 +40,7 @@ describe("SortSelect", () => {
     it("드롭다운이 닫혀있으면 옵션 목록을 렌더링하지 않는다", () => {
       render(<SortSelect selected="newest" />);
 
-      expect(screen.queryByRole("list")).not.toBeInTheDocument();
+      expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
     });
 
     it("유효하지 않은 selected값이면 첫 번째 옵션 라벨을 표시한다", () => {
@@ -57,7 +57,7 @@ describe("SortSelect", () => {
 
       await userEvent.click(screen.getByRole("button", { name: /최신순/ }));
 
-      expect(screen.getByRole("list")).toBeInTheDocument();
+      expect(screen.getByRole("listbox")).toBeInTheDocument();
     });
 
     it("드롭다운이 열리면 모든 정렬 옵션을 렌더링한다", async () => {
@@ -66,9 +66,7 @@ describe("SortSelect", () => {
       await userEvent.click(screen.getByRole("button", { name: /최신순/ }));
 
       SORT_OPTIONS.forEach(({ label }) => {
-        expect(
-          screen.getAllByRole("button", { name: label }).length,
-        ).toBeGreaterThanOrEqual(1);
+        expect(screen.getByRole("option", { name: label })).toBeInTheDocument();
       });
     });
 
@@ -79,7 +77,7 @@ describe("SortSelect", () => {
       await userEvent.click(trigger);
       await userEvent.click(trigger);
 
-      expect(screen.queryByRole("list")).not.toBeInTheDocument();
+      expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
     });
 
     it("외부 클릭 시 드롭다운이 닫힌다", async () => {
@@ -91,10 +89,10 @@ describe("SortSelect", () => {
       );
 
       await userEvent.click(screen.getByRole("button", { name: /최신순/ }));
-      expect(screen.getByRole("list")).toBeInTheDocument();
+      expect(screen.getByRole("listbox")).toBeInTheDocument();
 
       await userEvent.click(screen.getByRole("button", { name: "외부버튼" }));
-      expect(screen.queryByRole("list")).not.toBeInTheDocument();
+      expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
     });
   });
 
@@ -103,7 +101,7 @@ describe("SortSelect", () => {
       render(<SortSelect selected="newest" />);
 
       await userEvent.click(screen.getByRole("button", { name: /최신순/ }));
-      await userEvent.click(screen.getByRole("button", { name: "오래된순" }));
+      await userEvent.click(screen.getByRole("option", { name: "오래된순" }));
 
       expect(mockPush).toHaveBeenCalledWith("/notes?sort=oldest");
     });
@@ -112,9 +110,9 @@ describe("SortSelect", () => {
       render(<SortSelect selected="newest" />);
 
       await userEvent.click(screen.getByRole("button", { name: /최신순/ }));
-      await userEvent.click(screen.getByRole("button", { name: "가나다순" }));
+      await userEvent.click(screen.getByRole("option", { name: "가나다순" }));
 
-      expect(screen.queryByRole("list")).not.toBeInTheDocument();
+      expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
     });
 
     it("기존 searchParams를 유지하며 sort만 업데이트한다", async () => {
@@ -122,7 +120,7 @@ describe("SortSelect", () => {
       render(<SortSelect selected="newest" />);
 
       await userEvent.click(screen.getByRole("button", { name: /최신순/ }));
-      await userEvent.click(screen.getByRole("button", { name: "오래된순" }));
+      await userEvent.click(screen.getByRole("option", { name: "오래된순" }));
 
       expect(mockPush).toHaveBeenCalledWith(
         expect.stringContaining("sort=oldest"),
@@ -130,6 +128,67 @@ describe("SortSelect", () => {
       expect(mockPush).toHaveBeenCalledWith(
         expect.stringContaining("category=frontend"),
       );
+    });
+  });
+
+  describe("접근성", () => {
+    it("트리거 버튼의 aria-expanded 초기값은 false다", () => {
+      render(<SortSelect selected="newest" />);
+
+      expect(screen.getByRole("button", { name: /최신순/ })).toHaveAttribute(
+        "aria-expanded",
+        "false",
+      );
+    });
+
+    it("드롭다운이 열리면 트리거 버튼의 aria-expanded가 true가 된다", async () => {
+      render(<SortSelect selected="newest" />);
+
+      await userEvent.click(screen.getByRole("button", { name: /최신순/ }));
+
+      expect(screen.getByRole("button", { name: /최신순/ })).toHaveAttribute(
+        "aria-expanded",
+        "true",
+      );
+    });
+
+    it("드롭다운이 열리면 listbox role을 가진 목록이 렌더링된다", async () => {
+      render(<SortSelect selected="newest" />);
+
+      await userEvent.click(screen.getByRole("button", { name: /최신순/ }));
+
+      expect(screen.getByRole("listbox")).toBeInTheDocument();
+    });
+
+    it("현재 선택된 옵션의 aria-selected는 true다", async () => {
+      render(<SortSelect selected="oldest" />);
+
+      await userEvent.click(screen.getByRole("button", { name: /오래된순/ }));
+
+      expect(
+        screen.getByRole("option", { name: "오래된순" }),
+      ).toHaveAttribute("aria-selected", "true");
+    });
+
+    it("선택되지 않은 옵션의 aria-selected는 false다", async () => {
+      render(<SortSelect selected="oldest" />);
+
+      await userEvent.click(screen.getByRole("button", { name: /오래된순/ }));
+
+      expect(
+        screen.getByRole("option", { name: "최신순" }),
+      ).toHaveAttribute("aria-selected", "false");
+    });
+
+    it("Escape 키 입력 시 드롭다운이 닫힌다", async () => {
+      render(<SortSelect selected="newest" />);
+
+      await userEvent.click(screen.getByRole("button", { name: /최신순/ }));
+      expect(screen.getByRole("listbox")).toBeInTheDocument();
+
+      await userEvent.keyboard("{Escape}");
+
+      expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
     });
   });
 
