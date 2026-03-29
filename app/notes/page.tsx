@@ -9,16 +9,25 @@ import {
 } from "@/constants/category";
 
 type NotesPageProps = {
-  searchParams: Promise<{ category?: string; sort?: string }>;
+  searchParams: Promise<{
+    category?: string | string[];
+    sort?: string | string[];
+  }>;
 };
 
 export default async function NotesPage({ searchParams }: NotesPageProps) {
   const { category, sort } = await searchParams;
 
+  // 배열로 전달된 경우 첫 번째 값만 사용
+  const rawCategory = Array.isArray(category) ? category[0] : category;
+  const rawSort = Array.isArray(sort) ? sort[0] : sort;
+
   // 유효하지 않은 값은 기본값으로 폴백
-  const selectedSort = isCategorySortValue(sort) ? sort : SORT_OPTIONS[0].value;
-  const selectedCategory = isCategory(category)
-    ? category
+  const selectedSort = isCategorySortValue(rawSort)
+    ? rawSort
+    : SORT_OPTIONS[0].value;
+  const selectedCategory = isCategory(rawCategory)
+    ? rawCategory
     : CATEGORIES[0].value;
 
   return (
