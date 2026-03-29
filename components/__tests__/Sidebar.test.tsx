@@ -1,7 +1,8 @@
 import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 
-import { Sidebar } from "../Sidebar";
+import { Sidebar } from "../Sidebar/Sidebar";
 
 // SVG 아이콘 컴포넌트 mock
 vi.mock("@/components/Icons", () => ({
@@ -61,7 +62,7 @@ describe("Sidebar", () => {
   it("onLogout prop이 Logout 버튼에 연결된다", async () => {
     const onLogout = vi.fn();
     render(<Sidebar onLogout={onLogout} />);
-    screen.getByText("Logout").click();
+    await userEvent.click(screen.getByText("Logout"));
     expect(onLogout).toHaveBeenCalledTimes(1);
   });
 });
