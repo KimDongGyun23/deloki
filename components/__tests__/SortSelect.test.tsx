@@ -122,12 +122,12 @@ describe("SortSelect", () => {
       await userEvent.click(screen.getByRole("button", { name: /최신순/ }));
       await userEvent.click(screen.getByRole("option", { name: "오래된순" }));
 
-      expect(mockPush).toHaveBeenCalledWith(
-        expect.stringContaining("sort=oldest"),
-      );
-      expect(mockPush).toHaveBeenCalledWith(
-        expect.stringContaining("category=frontend"),
-      );
+      expect(mockPush).toHaveBeenCalledTimes(1);
+      const pushedUrl = mockPush.mock.calls[0][0] as string;
+      const query = pushedUrl.split("?")[1] ?? "";
+      const params = new URLSearchParams(query);
+      expect(params.get("sort")).toBe("oldest");
+      expect(params.get("category")).toBe("frontend");
     });
   });
 
@@ -165,9 +165,10 @@ describe("SortSelect", () => {
 
       await userEvent.click(screen.getByRole("button", { name: /오래된순/ }));
 
-      expect(
-        screen.getByRole("option", { name: "오래된순" }),
-      ).toHaveAttribute("aria-selected", "true");
+      expect(screen.getByRole("option", { name: "오래된순" })).toHaveAttribute(
+        "aria-selected",
+        "true",
+      );
     });
 
     it("선택되지 않은 옵션의 aria-selected는 false다", async () => {
@@ -175,9 +176,10 @@ describe("SortSelect", () => {
 
       await userEvent.click(screen.getByRole("button", { name: /오래된순/ }));
 
-      expect(
-        screen.getByRole("option", { name: "최신순" }),
-      ).toHaveAttribute("aria-selected", "false");
+      expect(screen.getByRole("option", { name: "최신순" })).toHaveAttribute(
+        "aria-selected",
+        "false",
+      );
     });
 
     it("Escape 키 입력 시 드롭다운이 닫힌다", async () => {
