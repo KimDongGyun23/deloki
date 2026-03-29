@@ -1,0 +1,92 @@
+/* 
+ * Light 테마 토큰
+ */
+:root,
+[data-theme="light"] {
+  --color-primary: #4f645b;
+  --color-primary-light: #d1e8dd;
+  --color-primary-dark: #43574f;
+  --color-secondary: #e4e9e8;
+  --color-muted: #f1f4f3;
+  --color-accent: #acb3b2;
+  --color-destructive: #d4183d;
+  --color-card: #ffffff;
+  --color-background: #ffffff;
+  --color-foreground: #171717;
+  --color-muted-foreground: #6b7280;
+
+  --tag-blue-bg: #dbeafe;
+  --tag-blue-text: #1e40af;
+  --tag-green-bg: #d1fae5;
+  --tag-green-text: #065f46;
+  --tag-purple-bg: #e9d5ff;
+  --tag-purple-text: #6b21a8;
+  --tag-orange-bg: #fed7aa;
+  --tag-orange-text: #c2410c;
+  --tag-pink-bg: #fce7f3;
+  --tag-pink-text: #be185d;
+  --tag-teal-bg: #ccfbf1;
+  --tag-teal-text: #115e59;
+  --tag-yellow-bg: #fef3c7;
+  --tag-yellow-text: #92400e;
+  --tag-red-bg: #fee2e2;
+  --tag-red-text: #b91c1c;
+  --tag-indigo-bg: #e0e7ff;
+  --tag-indigo-text: #3730a3;
+  --tag-gray-bg: #f3f4f6;
+  --tag-gray-text: #374151;
+}
+
+/*
+ * Dark 테마 토큰
+ */
+[data-theme="dark"] {
+  --color-primary: #5a6b63;
+  --color-primary-light: #3d4742;
+  --color-primary-dark: #7a8d85;
+  --color-secondary: #2f3336;
+  --color-muted: #2f3336;
+  --color-accent: #3d4742;
+  --color-destructive: #d4183d;
+  --color-card: #25282b;
+  --color-background: #1a1d1f;
+  --color-foreground: #e8eaed;
+  --color-muted-foreground: #9ca3af;
+
+  --tag-blue-bg: #1e3a8a;
+  --tag-blue-text: #bfdbfe;
+  --tag-green-bg: #064e3b;
+  --tag-green-text: #a7f3d0;
+  --tag-purple-bg: #581c87;
+  --tag-purple-text: #e9d5ff;
+  --tag-orange-bg: #9a3412;
+  --tag-orange-text: #fed7aa;
+  --tag-pink-bg: #9f1239;
+  --tag-pink-text: #fbcfe8;
+  --tag-teal-bg: #134e4a;
+  --tag-teal-text: #99f6e4;
+  --tag-yellow-bg: #78350f;
+  --tag-yellow-text: #fef3c7;
+  --tag-red-bg: #991b1b;
+  --tag-red-text: #fecaca;
+  --tag-indigo-bg: #312e81;
+  --tag-indigo-text: #c7d2fe;
+  --tag-gray-bg: #374151;
+  --tag-gray-text: #e5e7eb;
+}
+
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+
+@theme inline {
+  --color-primary: var(--color-primary);
+  --color-primary-light: var(--color-primary-light);
+  --color-primary-dark: var(--color-primary-dark);
+  --color-secondary: var(--color-secondary);
+  --color-muted: var(--color-muted);
+  --color-accent: var(--color-accent);
+  --color-destructive: var(--color-destructive);
+  --color-card: var(--color-card);
+  --color-background: var(--color-background);
+  --color-foreground: var(--color-foreground);
+  --color-muted-foreground: var(--color-muted-foreground);
+}

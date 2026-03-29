@@ -1,0 +1,5 @@
+@theme {
+  --font-sans: var(--font-esamanru), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-display: var(--font-memoment), sans-serif;
+  --font-mono: var(--font-geist-mono), 'Fira Code', monospace;
+}
