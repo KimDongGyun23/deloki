@@ -1,146 +1,85 @@
-"use client";
+import { TAG_COLOR_NAMES, type TagColor } from "@/constants/tag-colors";
+import { cn } from "@/lib/cn";
 
-import { css } from "@emotion/react";
-import styled from "@emotion/styled";
-
-import type { TagColor } from "@/styles/theme";
-import { borderRadius, shadows, spacing, tagColors, typography } from "@/styles/theme";
-
-// ─── Styled Components 방식 ───────────────────────────────────────────────────
-
-const Container = styled.div`
-  max-width: 800px;
-  margin: 0 auto;
-  padding: ${spacing.xl} ${spacing.lg};
-  display: flex;
-  flex-direction: column;
-  gap: ${spacing.xl};
-`;
-
-const Section = styled.section`
-  display: flex;
-  flex-direction: column;
-  gap: ${spacing.md};
-`;
-
-const SectionTitle = styled.h2`
-  font-size: ${typography.fontSize["2xl"]};
-  font-weight: ${typography.fontWeight.bold};
-  color: var(--color-foreground);
-`;
-
-// ─── css prop 방식 ────────────────────────────────────────────────────────────
-
-const colorCardStyle = css`
-  padding: ${spacing.lg};
-  border-radius: ${borderRadius.md};
-  font-size: ${typography.fontSize.sm};
-  font-weight: ${typography.fontWeight.semibold};
-  box-shadow: ${shadows.md};
-`;
-
-const colorGridStyle = css`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: ${spacing.md};
-`;
-
-const tagStyle = css`
-  display: inline-flex;
-  align-items: center;
-  padding: ${spacing.xs} ${spacing.sm};
-  border-radius: ${borderRadius.lg};
-  font-family: ${typography.fontFamily.display};
-  font-size: ${typography.fontSize.sm};
-  font-weight: ${typography.fontWeight.semibold};
-`;
-
-const tagWrapStyle = css`
-  display: flex;
-  flex-wrap: wrap;
-  gap: ${spacing.sm};
-`;
-
-// CSS 변수 적용 확인용 카드
-const COLOR_TOKENS = [
-  { label: "Primary", bg: "var(--color-primary)", color: "#fff" },
-  { label: "Primary Light", bg: "var(--color-primary-light)", color: "var(--color-primary-dark)" },
-  { label: "Primary Dark", bg: "var(--color-primary-dark)", color: "#fff" },
-  { label: "Secondary", bg: "var(--color-secondary)", color: "var(--color-foreground)" },
-  { label: "Muted", bg: "var(--color-muted)", color: "var(--color-muted-foreground)" },
-  { label: "Destructive", bg: "var(--color-destructive)", color: "#fff" },
-] as const;
-
-const TAG_COLORS: TagColor[] = [
-  "blue",
-  "green",
-  "purple",
-  "orange",
-  "pink",
-  "teal",
-  "yellow",
-  "red",
-  "indigo",
-  "gray",
+// CSS 변수 기반 색상 토큰 — Tailwind 유틸리티로 등록된 값
+const COLOR_TOKENS: { label: string; bgClass: string; textClass: string }[] = [
+  { label: "Primary", bgClass: "bg-primary", textClass: "text-white" },
+  {
+    label: "Primary Light",
+    bgClass: "bg-primary-light",
+    textClass: "text-primary-dark",
+  },
+  {
+    label: "Primary Dark",
+    bgClass: "bg-primary-dark",
+    textClass: "text-white",
+  },
+  { label: "Secondary", bgClass: "bg-secondary", textClass: "text-foreground" },
+  { label: "Muted", bgClass: "bg-muted", textClass: "text-muted-foreground" },
+  { label: "Destructive", bgClass: "bg-destructive", textClass: "text-white" },
 ];
 
 export default function Home() {
   return (
-    <Container>
+    <div className="mx-auto flex max-w-200 flex-col gap-8 px-6 py-8">
       {/* CSS 변수 (라이트/다크 자동 전환) 확인 */}
-      <Section>
-        <SectionTitle>Colors (CSS Variables)</SectionTitle>
-        <div css={colorGridStyle}>
-          {COLOR_TOKENS.map(({ label, bg, color }) => (
-            <div key={label} css={colorCardStyle} style={{ backgroundColor: bg, color }}>
+      <section className="flex flex-col gap-4">
+        <h2 className="text-foreground text-2xl font-bold">
+          Colors (CSS Variables)
+        </h2>
+        <div className="grid grid-cols-3 gap-4">
+          {COLOR_TOKENS.map(({ label, bgClass, textClass }) => (
+            <div
+              key={label}
+              className={cn(
+                "rounded-xl p-6 text-sm font-semibold shadow-md",
+                bgClass,
+                textClass,
+              )}
+            >
               {label}
             </div>
           ))}
         </div>
-      </Section>
+      </section>
 
-      {/* emotion styled + theme 토큰 확인 */}
-      <Section>
-        <SectionTitle>Shadows</SectionTitle>
-        <div css={colorGridStyle}>
+      {/* Tailwind shadow 토큰 확인 */}
+      <section className="flex flex-col gap-4">
+        <h2 className="text-foreground text-2xl font-bold">Shadows</h2>
+        <div className="grid grid-cols-3 gap-4">
           {(["sm", "md", "lg", "xl"] as const).map((size) => (
             <div
               key={size}
-              css={css`
-                padding: ${spacing.lg};
-                border-radius: ${borderRadius.md};
-                box-shadow: ${shadows[size]};
-                background: var(--color-card);
-                color: var(--color-foreground);
-                font-size: ${typography.fontSize.sm};
-                text-align: center;
-              `}
+              className={cn(
+                "bg-card text-foreground rounded-xl p-6 text-center text-sm",
+                `shadow-${size}`,
+              )}
             >
               shadow-{size}
             </div>
           ))}
         </div>
-      </Section>
+      </section>
 
       {/* tagColors 토큰 확인 */}
-      <Section>
-        <SectionTitle>Tag Colors</SectionTitle>
-        <div css={tagWrapStyle}>
-          {TAG_COLORS.map((color) => (
+      <section className="flex flex-col gap-4">
+        <h2 className="text-foreground text-2xl font-bold">Tag Colors</h2>
+        <div className="flex flex-wrap gap-2">
+          {TAG_COLOR_NAMES.map((color: TagColor) => (
             <span
               key={color}
-              css={tagStyle}
+              className="font-display inline-flex items-center rounded-2xl px-2 py-1 text-sm font-semibold"
               style={{
-                // prefers-color-scheme 감지 없이 light 값으로만 미리보기
-                backgroundColor: tagColors[color].light.bg,
-                color: tagColors[color].light.text,
+                // CSS 변수로 라이트/다크 자동 전환
+                backgroundColor: `var(--tag-${color}-bg)`,
+                color: `var(--tag-${color}-text)`,
               }}
             >
               {color}
             </span>
           ))}
         </div>
-      </Section>
-    </Container>
+      </section>
+    </div>
   );
 }

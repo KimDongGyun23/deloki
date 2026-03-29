@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 
-import { NavItem } from "../NavItem";
+import { NavItem } from "../Sidebar/NavItem";
 
 vi.mock("next/link", () => ({
   default: ({ href, children, ...props }: ComponentProps<"a">) => (

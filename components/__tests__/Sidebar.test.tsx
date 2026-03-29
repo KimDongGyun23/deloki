@@ -1,7 +1,8 @@
 import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 
-import { Sidebar } from "../Sidebar";
+import { Sidebar } from "../Sidebar/Sidebar";
 
 // SVG 아이콘 컴포넌트 mock
 vi.mock("@/components/Icons", () => ({
@@ -61,7 +62,22 @@ describe("Sidebar", () => {
   it("onLogout prop이 Logout 버튼에 연결된다", async () => {
     const onLogout = vi.fn();
     render(<Sidebar onLogout={onLogout} />);
-    screen.getByText("Logout").click();
+    await userEvent.click(screen.getByText("Logout"));
     expect(onLogout).toHaveBeenCalledTimes(1);
+  });
+
+  it("onLogout prop 없이 Logout 버튼 클릭 시 에러 없이 동작한다", async () => {
+    render(<Sidebar />);
+    await userEvent.click(screen.getByText("Logout"));
+    expect(screen.getByText("Logout")).toBeInTheDocument();
+  });
+
+  it("isDarkMode prop을 DarkModeToggle에 전달한다", () => {
+    document.documentElement.dataset.theme = "dark";
+    render(<Sidebar isDarkMode={true} />);
+    expect(
+      screen.getByRole("switch", { name: "라이트 모드로 전환" }),
+    ).toBeInTheDocument();
+    delete document.documentElement.dataset.theme;
   });
 });

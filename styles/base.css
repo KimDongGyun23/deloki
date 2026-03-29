@@ -1,0 +1,23 @@
+code,
+pre {
+  font-family: var(--font-mono);
+}
+
+button {
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* data-theme 미설정 시 기본값은 light */
+html {
+  color-scheme: light;
+}
+
+/* data-theme="dark" 명시 시 dark */
+html[data-theme="dark"] {
+  color-scheme: dark;
+}

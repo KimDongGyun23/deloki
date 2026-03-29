@@ -5,9 +5,7 @@ import { ElementType, SVGProps } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import styled from "@emotion/styled";
-
-import { borderRadius, spacing, typography } from "@/styles/theme";
+import { cn } from "@/lib/cn";
 
 type NavItemProps = {
   href: string;
@@ -31,32 +29,18 @@ export const NavItem = ({ href, label, Icon }: NavItemProps) => {
     href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(`${href}/`);
 
   return (
-    <StyledLink href={href} isActive={isActive} aria-current={isActive ? "page" : undefined}>
+    <Link
+      href={href}
+      aria-current={isActive ? "page" : undefined}
+      className={cn(
+        "flex items-center gap-4 rounded-2xl px-4 py-4 text-sm font-medium transition-[background-color,color] duration-150 ease-in",
+        isActive
+          ? "bg-primary text-card hover:bg-primary-dark"
+          : "bg-transparent text-foreground hover:bg-muted",
+      )}
+    >
       <Icon width={18} height={18} />
       {label}
-    </StyledLink>
+    </Link>
   );
 };
-
-const StyledLink = styled(Link, {
-  shouldForwardProp: (prop) => prop !== "isActive",
-})<{ isActive: boolean }>`
-  display: flex;
-  align-items: center;
-  gap: ${spacing.md};
-  padding: ${spacing.md} ${spacing.md};
-  border-radius: ${borderRadius.lg};
-  font-size: ${typography.fontSize.sm};
-  font-weight: ${typography.fontWeight.medium};
-  color: ${({ isActive }) => (isActive ? "var(--color-card)" : "var(--color-foreground)")};
-  background-color: ${({ isActive }) => (isActive ? "var(--color-primary)" : "transparent")};
-  text-decoration: none;
-  transition:
-    background-color 0.15s ease,
-    color 0.15s ease;
-
-  &:hover {
-    background-color: ${({ isActive }) =>
-      isActive ? "var(--color-primary-dark)" : "var(--color-muted)"};
-  }
-`;

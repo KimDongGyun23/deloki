@@ -7,16 +7,26 @@ import { cookies } from "next/headers";
 
 import { Sidebar } from "@/components/Sidebar/Sidebar";
 import { THEME_COOKIE_KEY, THEME_DARK, THEME_LIGHT } from "@/constants/theme";
-import { EmotionRegistry } from "@/providers/EmotionRegistry";
-import { GlobalStyles } from "@/styles/GlobalStyles";
 
-import "./globals.css";
+import "../styles/index.css";
 
 const esamanru = localFont({
   src: [
-    { path: "../public/fonts/esamanru-Light.ttf", weight: "300", style: "normal" },
-    { path: "../public/fonts/esamanru-Medium.ttf", weight: "500", style: "normal" },
-    { path: "../public/fonts/esamanru-Bold.ttf", weight: "700", style: "normal" },
+    {
+      path: "../public/fonts/esamanru-Light.ttf",
+      weight: "300",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/esamanru-Medium.ttf",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/esamanru-Bold.ttf",
+      weight: "700",
+      style: "normal",
+    },
   ],
   variable: "--font-esamanru",
 });
@@ -36,8 +46,9 @@ export const metadata: Metadata = {
   description: "Deloki",
 };
 
-export default async function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
-  // 쿠키에서 테마 읽기
+export default async function RootLayout({
+  children,
+}: Readonly<{ children: ReactNode }>) {
   const theme = (await cookies()).get(THEME_COOKIE_KEY)?.value ?? THEME_LIGHT;
   const isDarkMode = theme === THEME_DARK;
 
@@ -48,14 +59,11 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
       className={`${esamanru.variable} ${memoment.variable} ${geistMono.variable}`}
       suppressHydrationWarning
     >
-      <body>
-        <EmotionRegistry>
-          <GlobalStyles />
-          <div style={{ display: "flex", minHeight: "100vh" }}>
-            <Sidebar isDarkMode={isDarkMode} />
-            <main style={{ flex: 1 }}>{children}</main>
-          </div>
-        </EmotionRegistry>
+      <body className="bg-background text-foreground flex min-h-screen flex-col overflow-x-hidden font-sans antialiased">
+        <div className="flex min-h-full">
+          <Sidebar isDarkMode={isDarkMode} />
+          <main className="flex-1">{children}</main>
+        </div>
       </body>
     </html>
   );

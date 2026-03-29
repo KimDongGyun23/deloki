@@ -1,9 +1,6 @@
 "use client";
 
-import styled from "@emotion/styled";
-
 import { ChartIcon, ClipIcon, HomeIcon, LogoIcon, NoteIcon, SearchIcon } from "@/components/Icons";
-import { borderRadius, shadows, spacing, typography } from "@/styles/theme";
 
 import { DarkModeToggle } from "./DarkModeToggle";
 import { NavItem } from "./NavItem";
@@ -38,110 +35,42 @@ type SidebarProps = {
  */
 export const Sidebar = ({ userName = "Loki", isDarkMode, onLogout = () => {} }: SidebarProps) => {
   return (
-    <Wrapper>
+    <aside className="flex w-65 min-h-screen shrink-0 flex-col gap-6 border-r border-secondary bg-card px-2 py-6 shadow-sm">
       {/* 로고 */}
-      <LogoArea>
-        <LogoIconWrapper>
+      <div className="flex items-center gap-4 px-4 py-2">
+        <div className="flex aspect-square items-center justify-center rounded-lg bg-primary-light text-primary">
           <LogoIcon />
-        </LogoIconWrapper>
+        </div>
 
-        <LogoText>
-          <LogoTitle>De Loki</LogoTitle>
-          <LogoSubtitle>지식 아카이브</LogoSubtitle>
-        </LogoText>
-      </LogoArea>
+        <div className="flex flex-col py-1">
+          <span className="text-base font-bold leading-tight text-foreground">
+            De Loki
+          </span>
+          <span className="font-display text-xs text-muted-foreground">
+            지식 아카이브
+          </span>
+        </div>
+      </div>
 
       {/* 네비게이션 */}
-      <Nav>
+      <nav className="flex flex-1 flex-col gap-1">
         {NAV_ITEMS.map(({ href, label, Icon }) => (
           <NavItem key={href} href={href} label={label} Icon={Icon} />
         ))}
-      </Nav>
+      </nav>
 
       {/* 하단 영역 */}
-      <BottomArea>
-        <LogoutButton type="button" onClick={onLogout}>
+      <div className="flex flex-col gap-2 border-t border-secondary pt-4">
+        <button
+          type="button"
+          onClick={onLogout}
+          className="px-4 py-1 text-left text-sm text-muted-foreground hover:text-foreground"
+        >
           Logout
-        </LogoutButton>
+        </button>
         <DarkModeToggle isDarkMode={isDarkMode} />
         <UserProfile name={userName} />
-      </BottomArea>
-    </Wrapper>
+      </div>
+    </aside>
   );
 };
-
-const Wrapper = styled.aside`
-  display: flex;
-  flex-direction: column;
-  gap: ${spacing.lg};
-  width: 260px;
-  min-height: 100vh;
-  padding: ${spacing.lg} ${spacing.sm};
-  background-color: var(--color-card);
-  border-right: 1px solid var(--color-secondary);
-  box-shadow: ${shadows.sm};
-  flex-shrink: 0;
-`;
-
-const LogoArea = styled.div`
-  display: flex;
-  align-items: center;
-  gap: ${spacing.md};
-  padding: ${spacing.sm} ${spacing.md};
-`;
-
-const LogoIconWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  aspect-ratio: 1/1;
-  border-radius: ${borderRadius.sm};
-  background-color: var(--color-primary-light);
-  color: var(--color-primary);
-`;
-
-const LogoText = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding: ${spacing.xs} 0;
-`;
-
-const LogoTitle = styled.span`
-  font-size: ${typography.fontSize.base};
-  font-weight: ${typography.fontWeight.bold};
-  color: var(--color-foreground);
-  line-height: 1.2;
-`;
-
-const LogoSubtitle = styled.span`
-  font-family: ${typography.fontFamily.display};
-  font-size: ${typography.fontSize.xs};
-  color: var(--color-muted-foreground);
-`;
-
-const Nav = styled.nav`
-  display: flex;
-  flex-direction: column;
-  gap: ${spacing.xs};
-  flex: 1;
-`;
-
-const BottomArea = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${spacing.sm};
-  padding-top: ${spacing.md};
-  border-top: 1px solid var(--color-secondary);
-`;
-
-const LogoutButton = styled.button`
-  padding: ${spacing.xs} ${spacing.md};
-  font-size: ${typography.fontSize.sm};
-  color: var(--color-muted-foreground);
-  text-align: left;
-
-  &:hover {
-    color: var(--color-foreground);
-  }
-`;

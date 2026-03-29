@@ -1,0 +1,6 @@
+@theme {
+  --shadow-sm: 0 2px 4px -1px rgba(77, 98, 113, 0.06);
+  --shadow-md: 0 4px 8px -2px rgba(77, 98, 113, 0.08);
+  --shadow-lg: 0 12px 32px -4px rgba(77, 98, 113, 0.08);
+  --shadow-xl: 0 20px 40px -8px rgba(77, 98, 113, 0.12);
+}
