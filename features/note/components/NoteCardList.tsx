@@ -29,8 +29,12 @@ const NoteCard = ({ note }: NoteCardProps) => {
 
       <div className="mt-auto flex items-end justify-between gap-2">
         <div className="flex flex-wrap gap-1.5">
-          {note.tags.map((tag) => (
-            <NoteTag key={tag.name} name={tag.name} color={tag.color} />
+          {note.tags.map((tag, idx) => (
+            <NoteTag
+              key={`${tag.name}-${tag.color}-${idx}`}
+              name={tag.name}
+              color={tag.color}
+            />
           ))}
         </div>
 
