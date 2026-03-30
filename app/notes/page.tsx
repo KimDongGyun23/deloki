@@ -1,7 +1,10 @@
 import { redirect } from "next/navigation";
 
 type NotesIndexPageProps = {
-  searchParams: Promise<{ category?: string; sort?: string }>;
+  searchParams: Promise<{
+    category?: string | string[];
+    sort?: string | string[];
+  }>;
 };
 
 /**
@@ -14,13 +17,18 @@ export default async function NotesIndexPage({
   searchParams,
 }: NotesIndexPageProps) {
   const params = await searchParams;
+  const normalizedParams = {
+    category: Array.isArray(params.category)
+      ? params.category[0]
+      : params.category,
+    sort: Array.isArray(params.sort) ? params.sort[0] : params.sort,
+  };
 
   // searchParams에서 undefined인 값은 쿼리에서 제외
   const queryString = new URLSearchParams(
-    Object.entries(params).filter(([, v]) => v !== undefined) as [
-      string,
-      string,
-    ][],
+    Object.entries(normalizedParams).filter(
+      (entry): entry is [string, string] => typeof entry[1] === "string",
+    ),
   ).toString();
 
   redirect(queryString ? `/notes/1?${queryString}` : "/notes/1");
