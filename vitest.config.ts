@@ -19,7 +19,6 @@ export default defineConfig({
         "*.config.*",
         "*.setup.*",
         "app/**",
-        "**/constants/**",
       ],
     },
   },
