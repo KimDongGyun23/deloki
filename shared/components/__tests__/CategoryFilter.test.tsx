@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-import { CATEGORIES } from "@/constants/category";
+import { CATEGORIES } from "@/shared/constants/category";
 
 import { CategoryFilter } from "../CategoryFilter";
 

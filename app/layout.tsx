@@ -5,10 +5,14 @@ import { Geist_Mono } from "next/font/google";
 import localFont from "next/font/local";
 import { cookies } from "next/headers";
 
-import { Sidebar } from "@/components/Sidebar/Sidebar";
-import { THEME_COOKIE_KEY, THEME_DARK, THEME_LIGHT } from "@/constants/theme";
+import { Sidebar } from "@/shared/components/Sidebar/Sidebar";
+import {
+  THEME_COOKIE_KEY,
+  THEME_DARK,
+  THEME_LIGHT,
+} from "@/shared/constants/theme";
 
-import "../styles/index.css";
+import "../shared/styles/index.css";
 
 const esamanru = localFont({
   src: [
@@ -59,10 +63,10 @@ export default async function RootLayout({
       className={`${esamanru.variable} ${memoment.variable} ${geistMono.variable}`}
       suppressHydrationWarning
     >
-      <body className="bg-background text-foreground flex min-h-screen flex-col overflow-x-hidden font-sans antialiased">
-        <div className="flex min-h-full">
+      <body className="bg-background text-foreground flex h-screen flex-col overflow-hidden font-sans antialiased">
+        <div className="flex h-full overflow-hidden">
           <Sidebar isDarkMode={isDarkMode} />
-          <main className="flex-1">{children}</main>
+          <main className="flex-1 overflow-hidden">{children}</main>
         </div>
       </body>
     </html>

@@ -2,7 +2,7 @@ import { PropsWithChildren, ReactNode } from "react";
 
 import Link from "next/link";
 
-import { cn } from "@/lib/cn";
+import { cn } from "@/shared/lib/cn";
 
 /**
  * 페이지 제목 (h1)

@@ -5,7 +5,7 @@ import { ElementType, SVGProps } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { cn } from "@/lib/cn";
+import { cn } from "@/shared/lib/cn";
 
 type NavItemProps = {
   href: string;
@@ -26,7 +26,9 @@ type NavItemProps = {
 export const NavItem = ({ href, label, Icon }: NavItemProps) => {
   const pathname = usePathname();
   const isActive =
-    href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(`${href}/`);
+    href === "/"
+      ? pathname === "/"
+      : pathname === href || pathname.startsWith(`${href}/`);
 
   return (
     <Link
@@ -36,7 +38,7 @@ export const NavItem = ({ href, label, Icon }: NavItemProps) => {
         "flex items-center gap-4 rounded-2xl px-4 py-4 text-sm font-medium transition-[background-color,color] duration-150 ease-in",
         isActive
           ? "bg-primary text-card hover:bg-primary-dark"
-          : "bg-transparent text-foreground hover:bg-muted",
+          : "text-foreground hover:bg-muted bg-transparent",
       )}
     >
       <Icon width={18} height={18} />

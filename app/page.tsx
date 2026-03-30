@@ -1,5 +1,5 @@
-import { TAG_COLOR_NAMES, type TagColor } from "@/constants/tag-colors";
-import { cn } from "@/lib/cn";
+import { TAG_COLOR_NAMES, type TagColor } from "@/shared/constants/tag-colors";
+import { cn } from "@/shared/lib/cn";
 
 // CSS 변수 기반 색상 토큰 — Tailwind 유틸리티로 등록된 값
 const COLOR_TOKENS: { label: string; bgClass: string; textClass: string }[] = [

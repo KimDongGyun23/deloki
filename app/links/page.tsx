@@ -1,12 +1,12 @@
-import { CategoryFilter } from "@/components/CategoryFilter";
-import { PageHeader } from "@/components/PageHeader";
-import { SortSelect } from "@/components/SortSelect";
+import { CategoryFilter } from "@/shared/components/CategoryFilter";
+import { PageHeader } from "@/shared/components/PageHeader";
+import { SortSelect } from "@/shared/components/SortSelect";
 import {
   CATEGORIES,
   isCategory,
   isCategorySortValue,
   SORT_OPTIONS,
-} from "@/constants/category";
+} from "@/shared/constants/category";
 
 type LinksPageProps = {
   searchParams: Promise<{

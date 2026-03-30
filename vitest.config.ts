@@ -12,7 +12,14 @@ export default defineConfig({
       provider: "v8",
       reporter: ["text", "lcov"],
       reportsDirectory: "./coverage",
-      exclude: ["node_modules", ".next", "*.config.*", "*.setup.*", "app/**", "constants/**"],
+      exclude: [
+        "public/**",
+        "node_modules",
+        ".next",
+        "*.config.*",
+        "*.setup.*",
+        "app/**",
+      ],
     },
   },
   resolve: {

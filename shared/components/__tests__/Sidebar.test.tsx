@@ -5,7 +5,7 @@ import { describe, expect, it, vi } from "vitest";
 import { Sidebar } from "../Sidebar/Sidebar";
 
 // SVG 아이콘 컴포넌트 mock
-vi.mock("@/components/Icons", () => ({
+vi.mock("@/shared/components/Icons", () => ({
   HomeIcon: () => <svg data-testid="icon-home" />,
   NoteIcon: () => <svg data-testid="icon-note" />,
   ClipIcon: () => <svg data-testid="icon-clip" />,

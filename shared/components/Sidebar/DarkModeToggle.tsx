@@ -2,8 +2,12 @@
 
 import { useCallback, useSyncExternalStore } from "react";
 
-import { THEME_COOKIE_KEY, THEME_DARK, THEME_LIGHT } from "@/constants/theme";
-import { cn } from "@/lib/cn";
+import {
+  THEME_COOKIE_KEY,
+  THEME_DARK,
+  THEME_LIGHT,
+} from "@/shared/constants/theme";
+import { cn } from "@/shared/lib/cn";
 
 /**
  * 다크 모드 상태를 구독하는 함수
