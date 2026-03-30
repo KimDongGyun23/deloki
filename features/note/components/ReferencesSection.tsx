@@ -40,13 +40,11 @@ export const ReferencesSection = () => {
           <div key={field._key} className="flex flex-col gap-2">
             <div className="flex items-center justify-between">
               <FieldLabel>{index + 1}번 참고문헌</FieldLabel>
-              {fields.length > 1 && (
-                <RemoveButton
-                  onClick={() => remove(index)}
-                  label="참고문헌 제거"
-                  size={14}
-                />
-              )}
+              <RemoveButton
+                onClick={() => remove(index)}
+                label="참고문헌 제거"
+                size={14}
+              />
             </div>
 
             <input
