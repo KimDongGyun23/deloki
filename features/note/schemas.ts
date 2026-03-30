@@ -54,7 +54,10 @@ export type ConceptSection = z.infer<typeof conceptSectionSchema>;
 export type QAPair = z.infer<typeof qaPairSchema>;
 export type Reference = z.infer<typeof referenceSchema>;
 
-// 유틸리티 함수: 빈 폼 필드 생성
+export type NoteFormInputValues = Omit<NoteFormValues, "category"> & {
+  category: NoteCategory | "";
+};
+
 const createId = (): string => crypto.randomUUID();
 
 export const createEmptyKeyPoint = (): KeyPoint => ({
@@ -80,9 +83,9 @@ export const createEmptyReference = (): Reference => ({
   label: "",
 });
 
-export const createDefaultNoteFormValues = (): NoteFormValues => ({
+export const createDefaultNoteFormValues = (): NoteFormInputValues => ({
   title: "",
-  category: "" as NoteCategory,
+  category: "",
   tags: "",
   keyPoints: [createEmptyKeyPoint()],
   conceptSections: [createEmptyConceptSection()],
