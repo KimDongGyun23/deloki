@@ -36,12 +36,12 @@ export default async function NotesPage({
   const { page: pageParam } = await params;
   const { category, sort } = await searchParams;
 
-  const currentPage = parseInt(pageParam, 10);
+  // 페이지 번호는 순수 정수 문자열("1", "123" 등)만 허용
+  if (!/^\d+$/.test(pageParam)) notFound();
 
-  // 숫자가 아니거나 1 미만이면 404
-  if (isNaN(currentPage) || currentPage < 1) {
-    notFound();
-  }
+  // 페이지 번호가 1 미만이면 404
+  const currentPage = Number(pageParam);
+  if (currentPage < 1) notFound();
 
   // 배열로 전달된 경우 첫 번째 값만 사용
   const rawCategory = Array.isArray(category) ? category[0] : category;
