@@ -30,7 +30,8 @@ describe("NoteTag", () => {
 
     it("color(텍스트)에 color에 해당하는 CSS 변수가 적용된다", () => {
       const { container } = render(<NoteTag name="test" color="purple" />);
-      const span = container.querySelector("span")!;
+      const span = container.querySelector("span");
+      expect(span).toBeInTheDocument();
 
       expect(span).toHaveStyle({ color: "var(--tag-purple-text)" });
     });
