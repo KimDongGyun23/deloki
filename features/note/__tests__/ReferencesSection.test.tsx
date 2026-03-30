@@ -64,6 +64,13 @@ describe("ReferencesSection", () => {
   it("제거 버튼 클릭 시 해당 참고문헌이 제거된다", async () => {
     renderSection();
 
+    await userEvent.click(
+      screen.getByRole("button", { name: "+ add more reference" }),
+    );
+    await userEvent.click(
+      screen.getByRole("button", { name: "+ add more reference" }),
+    );
+
     expect(screen.getAllByText(/번 참고문헌/)).toHaveLength(2);
 
     await userEvent.click(
