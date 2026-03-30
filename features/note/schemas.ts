@@ -4,25 +4,25 @@ import { NOTE_CATEGORY_VALUES, type NoteCategory } from "./constants";
 
 export const keyPointSchema = z.object({
   id: z.string(),
-  content: z.string(),
+  content: z.string().trim().min(1, "핵심 포인트를 입력해주세요"),
 });
 
 export const conceptSectionSchema = z.object({
   id: z.string(),
-  title: z.string(),
-  content: z.string(),
+  title: z.string().trim().min(1, "섹션 제목을 입력해주세요"),
+  content: z.string().trim().min(1, "섹션 내용을 입력해주세요"),
 });
 
 export const qaPairSchema = z.object({
   id: z.string(),
-  question: z.string(),
-  answer: z.string(),
+  question: z.string().trim().min(1, "질문을 입력해주세요"),
+  answer: z.string().trim().min(1, "답변을 입력해주세요"),
 });
 
 export const referenceSchema = z.object({
   id: z.string(),
-  url: z.string(),
-  label: z.string(),
+  url: z.string().url("유효한 URL을 입력해주세요"),
+  label: z.string().trim().min(1, "참조 라벨을 입력해주세요"),
 });
 
 /**
