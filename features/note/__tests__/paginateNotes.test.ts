@@ -5,7 +5,7 @@ import type { NoteListItem } from "@/shared/types/note";
 
 import { paginateNotes } from "../lib/paginateNotes";
 
-/** 테스트용 노트 목목 생성 헬퍼 */
+/** 테스트용 노트 목록 생성 헬퍼 */
 const makeNotes = (count: number): NoteListItem[] =>
   Array.from({ length: count }, (_, i) => ({
     id: `note-${i + 1}`,
@@ -29,7 +29,7 @@ describe("paginateNotes", () => {
     });
 
     it("특정 category만 필터링한다", () => {
-      const notes = makeNotes(6); // frontend: 0,2,4 / backend: 1,3,5
+      const notes = makeNotes(6);
       const { paginated } = paginateNotes({
         notes,
         category: "frontend",
