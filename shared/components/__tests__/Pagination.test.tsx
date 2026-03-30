@@ -32,7 +32,9 @@ describe("Pagination", () => {
     it("totalPages가 2 이상이면 nav를 렌더링한다", () => {
       render(<Pagination currentPage={1} totalPages={5} basePath="/notes" />);
 
-      expect(screen.getByRole("navigation", { name: "페이지네이션" })).toBeInTheDocument();
+      expect(
+        screen.getByRole("navigation", { name: "페이지네이션" }),
+      ).toBeInTheDocument();
     });
   });
 
@@ -85,8 +87,11 @@ describe("Pagination", () => {
       );
 
       // 활성 링크 없이 aria-disabled span으로 렌더링
-      expect(screen.queryByRole("link", { name: "이전 페이지" })).not.toBeInTheDocument();
-      expect(container.querySelector("[aria-disabled]")).toBeInTheDocument();
+      expect(
+        screen.queryByRole("link", { name: "이전 페이지" }),
+      ).not.toBeInTheDocument();
+      const disabledSpan = container.querySelector("[aria-disabled='true']");
+      expect(disabledSpan).toBeInTheDocument();
     });
 
     it("currentPage < totalPages이면 다음 버튼이 활성 링크로 렌더링된다", () => {

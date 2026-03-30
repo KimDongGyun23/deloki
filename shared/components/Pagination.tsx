@@ -38,7 +38,7 @@ const PreviousPageButton = ({
 
   return (
     <span
-      aria-disabled
+      aria-disabled="true"
       className="flex h-8 w-8 cursor-not-allowed items-center justify-center rounded-lg"
     >
       <ChevronIcon size={12} className="text-muted-foreground rotate-90" />
@@ -79,7 +79,7 @@ const NextPageButton = ({
 
   return (
     <span
-      aria-disabled
+      aria-disabled="true"
       className="flex h-8 w-8 cursor-not-allowed items-center justify-center rounded-lg"
     >
       <ChevronIcon size={12} className="text-muted-foreground -rotate-90" />
@@ -87,21 +87,12 @@ const NextPageButton = ({
   );
 };
 
-type EllipsisProps = {
-  idx: number;
-};
-
 /**
  * 페이지네이션에서 페이지 번호 사이에 표시되는 생략 부호 컴포넌트
- *
- * @param idx 페이지 번호 목록에서의 인덱스 (key로 사용)
  */
-const Ellipsis = ({ idx }: EllipsisProps) => {
+const Ellipsis = () => {
   return (
-    <span
-      key={`ellipsis-${idx}`}
-      className="text-muted-foreground flex h-8 w-8 items-center justify-center text-sm"
-    >
+    <span className="text-muted-foreground flex h-8 w-8 items-center justify-center text-sm">
       ...
     </span>
   );
@@ -124,7 +115,6 @@ type PageNumberProps = {
 const PageNumber = ({ item, buildHref, isActive }: PageNumberProps) => {
   return (
     <Link
-      key={item}
       href={buildHref(item)}
       aria-current={isActive ? "page" : undefined}
       className={cn(
@@ -181,7 +171,7 @@ export const Pagination = ({
 
       {pageRange.map((item, idx) => {
         if (item === "...") {
-          return <Ellipsis key={`ellipsis-${idx}`} idx={idx} />;
+          return <Ellipsis key={`ellipsis-${idx}`} />;
         }
 
         const isActive = item === currentPage;
