@@ -3,6 +3,8 @@ import Link from "next/link";
 import { NoteTag } from "@/shared/components/NoteTag";
 import type { NoteListItem } from "@/shared/types/note";
 
+import { toISODate } from "../lib/toISODate";
+
 type NoteCardProps = {
   note: NoteListItem;
 };
@@ -33,7 +35,7 @@ const NoteCard = ({ note }: NoteCardProps) => {
         </div>
 
         <time
-          dateTime={note.createdAt}
+          dateTime={toISODate(note.createdAt)}
           className="text-muted-foreground shrink-0 text-xs"
         >
           {note.createdAt}

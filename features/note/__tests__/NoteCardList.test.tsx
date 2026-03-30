@@ -65,7 +65,7 @@ describe("NoteCardList", () => {
 
       const time = screen.getByText("2024.03.15");
       expect(time.tagName.toLowerCase()).toBe("time");
-      expect(time).toHaveAttribute("dateTime", "2024.03.15");
+      expect(time).toHaveAttribute("dateTime", "2024-03-15");
     });
   });
 
