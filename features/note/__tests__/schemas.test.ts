@@ -33,12 +33,12 @@ describe("_schemas", () => {
 
     it("title 오류 메시지는 '제목을 입력해주세요'다", () => {
       const result = noteFormSchema.safeParse({ ...validData, title: "" });
-      if (!result.success) {
-        const titleError = result.error.issues.find((i) =>
-          i.path.includes("title"),
-        );
-        expect(titleError?.message).toBe("제목을 입력해주세요");
-      }
+      expect(result.success).toBe(false);
+      if (result.success) return;
+      const titleError = result.error.issues.find((i) =>
+        i.path.includes("title"),
+      );
+      expect(titleError?.message).toBe("제목을 입력해주세요");
     });
 
     it("유효하지 않은 category는 실패한다", () => {
