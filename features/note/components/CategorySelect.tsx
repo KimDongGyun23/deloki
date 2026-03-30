@@ -132,6 +132,8 @@ export const CategorySelect = ({ value, onChange }: CategorySelectProps) => {
 
   // 드롭다운 외부 클릭 시 닫기 처리
   useEffect(() => {
+    if (!isOpen) return;
+
     const handleClickOutside = (e: MouseEvent) => {
       const container = containerRef.current;
       if (!container || container.contains(e.target as Node)) return;
@@ -140,7 +142,7 @@ export const CategorySelect = ({ value, onChange }: CategorySelectProps) => {
     };
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  }, [isOpen]);
 
   return (
     <div
