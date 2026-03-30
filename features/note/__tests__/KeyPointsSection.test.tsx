@@ -4,7 +4,10 @@ import { FormProvider, useForm } from "react-hook-form";
 import { describe, expect, it, vi } from "vitest";
 
 import { KeyPointsSection } from "../components/KeyPointsSection";
-import { createDefaultNoteFormValues, type NoteFormValues } from "../schemas";
+import {
+  createDefaultNoteFormValues,
+  type NoteFormValues,
+} from "../schemas";
 
 vi.mock("@/shared/components/Icons", () => ({
   CloseIcon: ({ size }: { size?: number }) => (

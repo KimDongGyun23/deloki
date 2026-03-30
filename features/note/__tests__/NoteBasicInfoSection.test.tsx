@@ -44,7 +44,7 @@ describe("NoteBasicInfoSection", () => {
 
   it("카테고리 선택 버튼을 렌더링한다", () => {
     renderSection();
-    expect(screen.getByText("카테고리 선택")).toBeInTheDocument();
+    expect(screen.getByText("프론트엔드")).toBeInTheDocument();
   });
 
   it("태그 입력 필드를 렌더링한다", () => {
@@ -66,7 +66,7 @@ describe("NoteBasicInfoSection", () => {
   it("카테고리 드롭다운을 열어 옵션을 선택할 수 있다", async () => {
     renderSection();
 
-    await userEvent.click(screen.getByRole("button", { name: /카테고리/ }));
+    await userEvent.click(screen.getByRole("button", { name: /프론트엔드/ }));
 
     const frontend = NOTE_CATEGORIES.find((c) => c.value === "frontend")!;
     await userEvent.click(screen.getByRole("option", { name: frontend.label }));

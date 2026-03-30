@@ -74,6 +74,13 @@ describe("_schemas", () => {
       });
       expect(result.success).toBe(true);
     });
+
+    it("references가 없으면 실패한다", () => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { references: _, ...withoutReferences } = validData;
+      const result = noteFormSchema.safeParse(withoutReferences);
+      expect(result.success).toBe(false);
+    });
   });
 
   describe("createEmptyKeyPoint", () => {

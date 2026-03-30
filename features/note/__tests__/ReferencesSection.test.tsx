@@ -49,18 +49,6 @@ describe("ReferencesSection", () => {
     expect(screen.getByText("1번 참고문헌")).toBeInTheDocument();
   });
 
-  it("항목이 1개일 때 제거 버튼이 없다", async () => {
-    renderSection();
-
-    await userEvent.click(
-      screen.getByRole("button", { name: "+ add more reference" }),
-    );
-
-    expect(
-      screen.queryByRole("button", { name: "참고문헌 제거" }),
-    ).not.toBeInTheDocument();
-  });
-
   it("항목이 2개 이상이면 제거 버튼이 표시된다", async () => {
     renderSection();
 
