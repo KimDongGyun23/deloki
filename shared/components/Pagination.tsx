@@ -37,12 +37,14 @@ const PreviousPageButton = ({
   }
 
   return (
-    <span
-      aria-disabled="true"
+    <button
+      type="button"
+      disabled
+      aria-label="이전 페이지 (비활성화)"
       className="flex h-8 w-8 cursor-not-allowed items-center justify-center rounded-lg"
     >
       <ChevronIcon size={12} className="text-muted-foreground rotate-90" />
-    </span>
+    </button>
   );
 };
 
@@ -78,12 +80,14 @@ const NextPageButton = ({
   }
 
   return (
-    <span
-      aria-disabled="true"
+    <button
+      type="button"
+      disabled
+      aria-label="다음 페이지 (비활성화)"
       className="flex h-8 w-8 cursor-not-allowed items-center justify-center rounded-lg"
     >
       <ChevronIcon size={12} className="text-muted-foreground -rotate-90" />
-    </span>
+    </button>
   );
 };
 
