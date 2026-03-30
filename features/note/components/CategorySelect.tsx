@@ -1,17 +1,16 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 
 import { ChevronIcon } from "@/shared/components/Icons";
 import { cn } from "@/shared/lib/cn";
 
 import { NOTE_CATEGORIES, type NoteCategory } from "../constants";
 
-const LISTBOX_ID = "note-category-listbox";
-
 type CategoryButtonProps = {
   isOpen: boolean;
   selectedLabel: string | null;
+  listboxId: string;
   onClickButton: () => void;
 };
 
@@ -27,6 +26,7 @@ type CategoryButtonProps = {
 const CategoryButton = ({
   isOpen,
   selectedLabel,
+  listboxId,
   onClickButton,
 }: CategoryButtonProps) => {
   return (
@@ -34,7 +34,7 @@ const CategoryButton = ({
       type="button"
       aria-expanded={isOpen}
       aria-haspopup="listbox"
-      aria-controls={LISTBOX_ID}
+      aria-controls={listboxId}
       onClick={onClickButton}
       className="bg-muted focus:outline-primary flex w-full cursor-pointer items-center justify-between gap-1.5 rounded-xl px-3 py-2 text-sm focus:outline-2 focus:outline-offset-2"
     >
@@ -58,6 +58,7 @@ const CategoryButton = ({
 type CategoryListProps = {
   value: NoteCategory | "";
   onOptionClick: (value: NoteCategory) => void;
+  listboxId: string;
 };
 
 /**
@@ -69,11 +70,15 @@ type CategoryListProps = {
  * @param value 현재 선택된 카테고리 값
  * @param onOptionClick 옵션 클릭 시 호출되는 콜백
  */
-const CategoryList = ({ value, onOptionClick }: CategoryListProps) => {
+const CategoryList = ({
+  value,
+  listboxId,
+  onOptionClick,
+}: CategoryListProps) => {
   return (
     <ul
       role="listbox"
-      id={LISTBOX_ID}
+      id={listboxId}
       className="bg-card border-secondary absolute right-0 left-0 z-10 mt-1 rounded-xl border shadow-md"
     >
       {NOTE_CATEGORIES.map(({ label, value: optValue }) => (
@@ -113,6 +118,7 @@ type CategorySelectProps = {
  */
 export const CategorySelect = ({ value, onChange }: CategorySelectProps) => {
   const [isOpen, setIsOpen] = useState(false);
+  const listboxId = useId();
   const containerRef = useRef<HTMLDivElement>(null);
 
   // 현재 선택된 카테고리의 라벨을 찾아서 표시 (없으면 null)
@@ -155,11 +161,16 @@ export const CategorySelect = ({ value, onChange }: CategorySelectProps) => {
       <CategoryButton
         isOpen={isOpen}
         selectedLabel={selectedLabel}
+        listboxId={listboxId}
         onClickButton={() => setIsOpen((prev) => !prev)}
       />
 
       {isOpen && (
-        <CategoryList value={value} onOptionClick={handleOptionClick} />
+        <CategoryList
+          value={value}
+          listboxId={listboxId}
+          onOptionClick={handleOptionClick}
+        />
       )}
     </div>
   );
