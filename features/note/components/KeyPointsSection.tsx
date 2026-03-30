@@ -42,6 +42,7 @@ export const KeyPointsSection = () => {
               {...register(`${NOTE_FORM_FIELDS.keyPoints}.${index}.content`)}
               placeholder="hydration은 서버에서 만든 HTML을 클라이언트에서..."
               className={inputCls}
+              aria-label={`Key Point ${index + 1}`}
             />
             {fields.length > 1 && (
               <RemoveButton

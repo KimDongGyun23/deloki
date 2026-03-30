@@ -28,9 +28,14 @@ export const NoteBasicInfoSection = () => {
           {...register("title")}
           placeholder="어떤 이야기를 적어볼까요?"
           className="text-foreground font-display placeholder:text-muted-foreground mt-2 w-full rounded-md bg-transparent text-xl font-semibold focus:outline-none"
+          aria-invalid={Boolean(errors.title)}
+          aria-describedby={errors.title ? "note-title-error" : undefined}
         />
         {errors.title && (
-          <p className="text-destructive font-display mt-1 text-xs">
+          <p
+            id="note-title-error"
+            className="text-destructive font-display mt-1 text-xs"
+          >
             {errors.title.message}
           </p>
         )}
@@ -47,11 +52,6 @@ export const NoteBasicInfoSection = () => {
                 <CategorySelect value={field.value} onChange={field.onChange} />
               )}
             />
-            {errors.category && (
-              <p className="text-destructive font-display mt-1 text-xs">
-                {errors.category.message}
-              </p>
-            )}
           </div>
         </div>
 
