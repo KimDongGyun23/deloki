@@ -43,7 +43,7 @@ export type Reference = z.infer<typeof referenceSchema>;
  * - category: NOTE_CATEGORIES 중 하나 (all 제외)
  * - tags: 스페이스 구분 문자열
  * - keyPoints/conceptSections/qaPairs: 최소 1개
- * - references: 선택
+ * - references: 필수 배열 (빈 배열 허용)
  */
 export const noteFormSchema = z.object({
   title: z.string().min(1, "제목을 입력해주세요"),
@@ -54,21 +54,13 @@ export const noteFormSchema = z.object({
   keyPoints: z.array(keyPointSchema).min(1),
   conceptSections: z.array(conceptSectionSchema).min(1),
   qaPairs: z.array(qaPairSchema).min(1),
-  references: z.array(referenceSchema).optional().default([]),
+  references: z.array(referenceSchema),
 });
 
 export type NoteFormValues = z.infer<typeof noteFormSchema>;
 
 // noteFormSchema의 키를 타입으로 갖는 객체
 export const NOTE_FORM_FIELDS = noteFormSchema.keyof().enum;
-
-/**
- * 폼 입력/출력 타입 분리
- * - 입력(input): RHF가 다루는 원본 폼 값 (optional 포함)
- * - 출력(output): zod 파싱 이후 값
- */
-export type NoteFormInputValues = z.input<typeof noteFormSchema>;
-export type NoteFormOutputValues = z.output<typeof noteFormSchema>;
 
 /**
  * 빈 핵심 포인트 객체를 생성하는 유틸 함수
