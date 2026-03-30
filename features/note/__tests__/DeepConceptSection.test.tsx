@@ -72,12 +72,15 @@ describe("DeepConceptSection", () => {
     await userEvent.click(
       screen.getByRole("button", { name: "+ more add section" }),
     );
-    expect(screen.getByText("Section 2")).toBeInTheDocument();
+    const titleInputs = screen.getAllByPlaceholderText("섹션 제목 (선택)");
+    await userEvent.type(titleInputs[0], "first");
+    await userEvent.type(titleInputs[1], "second");
 
     await userEvent.click(
       screen.getAllByRole("button", { name: /섹션 제거/ })[0],
     );
 
-    expect(screen.queryByText("Section 2")).not.toBeInTheDocument();
+    expect(screen.queryByDisplayValue("first")).not.toBeInTheDocument();
+    expect(screen.getByDisplayValue("second")).toBeInTheDocument();
   });
 });
