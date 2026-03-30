@@ -59,10 +59,10 @@ export default async function RootLayout({
       className={`${esamanru.variable} ${memoment.variable} ${geistMono.variable}`}
       suppressHydrationWarning
     >
-      <body className="bg-background text-foreground flex min-h-screen flex-col overflow-x-hidden font-sans antialiased">
-        <div className="flex min-h-full">
+      <body className="bg-background text-foreground flex h-screen flex-col overflow-hidden font-sans antialiased">
+        <div className="flex h-full overflow-hidden">
           <Sidebar isDarkMode={isDarkMode} />
-          <main className="flex-1">{children}</main>
+          <main className="flex-1 overflow-hidden">{children}</main>
         </div>
       </body>
     </html>
