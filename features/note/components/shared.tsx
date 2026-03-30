@@ -53,14 +53,18 @@ type RemoveButtonProps = {
 /**
  * 항목 제거 버튼 (✕)
  */
-export const RemoveButton = ({ onClick, label, size }: RemoveButtonProps) => (
+export const RemoveButton = ({
+  onClick,
+  label,
+  size = 14,
+}: RemoveButtonProps) => (
   <button
     type="button"
     onClick={onClick}
     aria-label={label}
     className="text-muted-foreground hover:text-destructive shrink-0 transition-colors duration-150"
   >
-    <CloseIcon size={size || 14} />
+    <CloseIcon size={size} />
   </button>
 );
 
