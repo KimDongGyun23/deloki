@@ -12,8 +12,9 @@ import { QASection } from "../components/QASection";
 import { ReferencesSection } from "../components/ReferencesSection";
 import {
   createDefaultNoteFormValues,
+  NoteFormInputValues,
+  NoteFormOutputValues,
   noteFormSchema,
-  type NoteFormValues,
 } from "../schemas";
 import { NoteCreateFormHeader } from "./NoteCreateFormHeader";
 
@@ -26,7 +27,7 @@ import { NoteCreateFormHeader } from "./NoteCreateFormHeader";
 export const NoteCreateFormClient = () => {
   const router = useRouter();
 
-  const methods = useForm<NoteFormValues>({
+  const methods = useForm<NoteFormInputValues, unknown, NoteFormOutputValues>({
     resolver: zodResolver(noteFormSchema),
     defaultValues: createDefaultNoteFormValues(),
   });
