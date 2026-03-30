@@ -81,17 +81,18 @@ describe("Pagination", () => {
   });
 
   describe("이전/다음 버튼", () => {
-    it("currentPage=1이면 이전 버튼이 비활성화 span으로 렌더링된다", () => {
-      const { container } = render(
+    it("currentPage=1이면 이전 버튼이 비활성화 button으로 렌더링된다", () => {
+      render(
         <Pagination currentPage={1} totalPages={5} basePath="/notes" />,
       );
 
-      // 활성 링크 없이 aria-disabled span으로 렌더링
+      // 활성 링크 없이 disabled button으로 렌더링
       expect(
         screen.queryByRole("link", { name: "이전 페이지" }),
       ).not.toBeInTheDocument();
-      const disabledSpan = container.querySelector("[aria-disabled='true']");
-      expect(disabledSpan).toBeInTheDocument();
+      expect(
+        screen.getByRole("button", { name: "이전 페이지 (비활성화)" }),
+      ).toBeDisabled();
     });
 
     it("currentPage < totalPages이면 다음 버튼이 활성 링크로 렌더링된다", () => {
@@ -111,12 +112,15 @@ describe("Pagination", () => {
       );
     });
 
-    it("currentPage=totalPages이면 다음 버튼이 비활성화 span으로 렌더링된다", () => {
+    it("currentPage=totalPages이면 다음 버튼이 비활성화 button으로 렌더링된다", () => {
       render(<Pagination currentPage={5} totalPages={5} basePath="/notes" />);
 
       expect(
         screen.queryByRole("link", { name: "다음 페이지" }),
       ).not.toBeInTheDocument();
+      expect(
+        screen.getByRole("button", { name: "다음 페이지 (비활성화)" }),
+      ).toBeDisabled();
     });
   });
 
