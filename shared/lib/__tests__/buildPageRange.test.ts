@@ -78,12 +78,13 @@ describe("buildPageRange", () => {
 
     it("연속된 숫자 사이에 ellipsis가 삽입되지 않는다", () => {
       const result = buildPageRange(1, 10);
-      // 숫자인 요소만 추출해서 연속 여부 확인
-      const numbers = result.filter((item): item is number => item !== "...");
-      for (let i = 1; i < numbers.length; i++) {
-        // ellipsis가 없는 숫자는 연속이어야 함
-        // (ellipsis가 있는 위치를 기준으로만 판단 가능하므로 단순 검증)
-        expect(numbers[i]).toBeGreaterThan(numbers[i - 1]);
+      // ellipsis 앞뒤 숫자가 2 이상 차이나는지 확인
+      for (let i = 0; i < result.length; i++) {
+        if (result[i] === "...") {
+          const prev = result[i - 1] as number;
+          const next = result[i + 1] as number;
+          expect(next - prev).toBeGreaterThan(1);
+        }
       }
     });
   });
