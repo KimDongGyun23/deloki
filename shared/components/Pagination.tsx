@@ -9,25 +9,20 @@ import { buildPageRange } from "../lib/buildPageRange";
 import { ChevronIcon } from "./Icons";
 
 type PreviousPageButtonProps = {
-  currentPage: number;
-  buildHref: (page: number) => string;
+  prevHref?: string;
 };
 
 /**
  * 이전 페이지 버튼 컴포넌트
- * - currentPage가 1보다 크면 활성화된 링크로 렌더링, 그렇지 않으면 비활성화된 상태로 렌더링
+ * - prevHref가 있으면 활성화된 링크로 렌더링, 없으면 비활성화된 상태로 렌더링
  *
- * @param currentPage 현재 페이지 번호
- * @param buildHref 페이지 번호를 받아 해당 페이지로 이동하는 URL을 반환하는 함수
+ * @param prevHref 이전 페이지 URL (없으면 비활성화)
  */
-const PreviousPageButton = ({
-  currentPage,
-  buildHref,
-}: PreviousPageButtonProps) => {
-  if (currentPage > 1) {
+const PreviousPageButton = ({ prevHref }: PreviousPageButtonProps) => {
+  if (prevHref) {
     return (
       <Link
-        href={buildHref(currentPage - 1)}
+        href={prevHref}
         aria-label="이전 페이지"
         className="hover:bg-secondary flex h-8 w-8 items-center justify-center rounded-lg transition-colors"
       >
@@ -49,28 +44,20 @@ const PreviousPageButton = ({
 };
 
 type NextPageButtonProps = {
-  currentPage: number;
-  totalPages: number;
-  buildHref: (page: number) => string;
+  nextHref?: string;
 };
 
 /**
  * 다음 페이지 버튼 컴포넌트
- * - currentPage가 totalPages보다 작으면 활성화된 링크로 렌더링, 그렇지 않으면 비활성화된 상태로 렌더링
+ * - nextHref가 있으면 활성화된 링크로 렌더링, 없으면 비활성화된 상태로 렌더링
  *
- * @param currentPage 현재 페이지 번호
- * @param totalPages 전체 페이지 수
- * @param buildHref 페이지 번호를 받아 해당 페이지로 이동하는 URL을 반환하는 함수
+ * @param nextHref 다음 페이지 URL (없으면 비활성화)
  */
-const NextPageButton = ({
-  currentPage,
-  totalPages,
-  buildHref,
-}: NextPageButtonProps) => {
-  if (currentPage < totalPages) {
+const NextPageButton = ({ nextHref }: NextPageButtonProps) => {
+  if (nextHref) {
     return (
       <Link
-        href={buildHref(currentPage + 1)}
+        href={nextHref}
         aria-label="다음 페이지"
         className="hover:bg-secondary flex h-8 w-8 items-center justify-center rounded-lg transition-colors"
       >
@@ -104,22 +91,22 @@ const Ellipsis = () => {
 
 type PageNumberProps = {
   item: number;
-  buildHref: (page: number) => string;
+  pageHref: string;
   isActive: boolean;
 };
 
 /**
  * 페이지 번호 버튼 컴포넌트
- * - item이 currentPage와 같으면 활성화된 스타일로 렌더링, 그렇지 않으면 일반 스타일로 렌더링
+ * - isActive이면 활성화된 스타일로 렌더링, 그렇지 않으면 일반 스타일로 렌더링
  *
  * @param item 페이지 번호
- * @param buildHref 페이지 번호를 받아 해당 페이지로 이동하는 URL을 반환하는 함수
+ * @param pageHref 해당 페이지 URL
  * @param isActive 현재 페이지인지 여부
  */
-const PageNumber = ({ item, buildHref, isActive }: PageNumberProps) => {
+const PageNumber = ({ item, pageHref, isActive }: PageNumberProps) => {
   return (
     <Link
-      href={buildHref(item)}
+      href={pageHref}
       aria-current={isActive ? "page" : undefined}
       className={cn(
         "flex h-8 w-8 items-center justify-center rounded-lg text-sm font-medium transition-colors",
@@ -154,15 +141,9 @@ export const Pagination = ({
   const searchParams = useSearchParams();
   if (totalPages <= 1) return null;
 
-  /**
-   * 특정 페이지로의 링크 URL 생성
-   * - 현재 searchParams(category, sort)를 유지
-   */
-  const buildHref = (page: number): string => {
-    const params = new URLSearchParams(searchParams.toString());
-    const query = params.toString();
-    return query ? `${basePath}/${page}?${query}` : `${basePath}/${page}`;
-  };
+  const query = searchParams.toString();
+  const hrefBuilder = (page: number) =>
+    query ? `${basePath}/${page}?${query}` : `${basePath}/${page}`;
 
   const pageRange = buildPageRange(currentPage, totalPages);
 
@@ -171,7 +152,9 @@ export const Pagination = ({
       aria-label="페이지네이션"
       className="font-display flex items-center justify-center gap-1"
     >
-      <PreviousPageButton currentPage={currentPage} buildHref={buildHref} />
+      <PreviousPageButton
+        prevHref={currentPage > 1 ? hrefBuilder(currentPage - 1) : undefined}
+      />
 
       {pageRange.map((item, idx) => {
         if (item === "...") {
@@ -184,16 +167,14 @@ export const Pagination = ({
           <PageNumber
             key={item}
             item={item}
-            buildHref={buildHref}
+            pageHref={hrefBuilder(item)}
             isActive={isActive}
           />
         );
       })}
 
       <NextPageButton
-        currentPage={currentPage}
-        totalPages={totalPages}
-        buildHref={buildHref}
+        nextHref={currentPage < totalPages ? hrefBuilder(currentPage + 1) : undefined}
       />
     </nav>
   );
