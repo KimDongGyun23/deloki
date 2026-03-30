@@ -21,7 +21,6 @@ import {
  *
  * - useFieldArray로 참고문헌 목록 관리
  * - 제목(label) → URL 순 상하 배치
- * - 1개일 땐 제거 버튼 숨김
  */
 export const ReferencesSection = () => {
   const { register, control } = useFormContext<NoteFormValues>();

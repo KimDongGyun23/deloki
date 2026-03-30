@@ -49,37 +49,28 @@ describe("ReferencesSection", () => {
     expect(screen.getByText("1번 참고문헌")).toBeInTheDocument();
   });
 
-  it("항목이 2개 이상이면 제거 버튼이 표시된다", async () => {
+  it("항목이 1개 이상이면 제거 버튼이 표시된다", async () => {
     renderSection();
 
-    await userEvent.click(
-      screen.getByRole("button", { name: "+ add more reference" }),
-    );
     await userEvent.click(
       screen.getByRole("button", { name: "+ add more reference" }),
     );
 
     expect(
-      screen.getAllByRole("button", { name: "참고문헌 제거" }),
-    ).toHaveLength(2);
+      screen.getByRole("button", { name: "참고문헌 제거" }),
+    ).toBeInTheDocument();
   });
 
   it("제거 버튼 클릭 시 해당 참고문헌이 제거된다", async () => {
     renderSection();
 
-    await userEvent.click(
-      screen.getByRole("button", { name: "+ add more reference" }),
-    );
-    await userEvent.click(
-      screen.getByRole("button", { name: "+ add more reference" }),
-    );
-    expect(screen.getByText("2번 참고문헌")).toBeInTheDocument();
+    expect(screen.getAllByText(/번 참고문헌/)).toHaveLength(2);
 
     await userEvent.click(
       screen.getAllByRole("button", { name: "참고문헌 제거" })[0],
     );
 
-    expect(screen.queryByText("2번 참고문헌")).not.toBeInTheDocument();
+    expect(screen.getAllByText(/번 참고문헌/)).toHaveLength(1);
   });
 
   it("URL 입력 필드의 type이 url이다", async () => {
