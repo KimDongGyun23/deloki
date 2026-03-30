@@ -63,14 +63,16 @@ describe("NoteBasicInfoSection", () => {
     expect(titleInput).toHaveValue("React 학습 노트");
   });
 
-  it("카테고리 드롭다운을 열어 옵션을 선택할 수 있다", async () => {
+  it("카테고리 드롭다운에서 다른 옵션으로 변경할 수 있다", async () => {
     renderSection();
 
     await userEvent.click(screen.getByRole("button", { name: /프론트엔드/ }));
 
-    const frontend = NOTE_CATEGORIES.find((c) => c.value === "frontend")!;
-    await userEvent.click(screen.getByRole("option", { name: frontend.label }));
+    const backend = NOTE_CATEGORIES.find((c) => c.value === "backend")!;
+    await userEvent.click(screen.getByRole("option", { name: backend.label }));
 
-    expect(screen.getByText(frontend.label)).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: backend.label }),
+    ).toBeInTheDocument();
   });
 });
