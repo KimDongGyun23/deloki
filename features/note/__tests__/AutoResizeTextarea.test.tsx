@@ -51,4 +51,34 @@ describe("AutoResizeTextarea", () => {
     render(<AutoResizeTextarea value="" onChange={vi.fn()} />);
     expect(screen.getByRole("textbox")).toHaveClass("resize-none");
   });
+
+  it("overflow-hidden 클래스를 가진다 (스크롤바 방지)", () => {
+    render(<AutoResizeTextarea value="" onChange={vi.fn()} />);
+    expect(screen.getByRole("textbox")).toHaveClass("overflow-hidden");
+  });
+
+  it("초기 렌더링 시 scrollHeight 기반으로 height를 설정한다", () => {
+    const { getByRole } = render(
+      <AutoResizeTextarea value="초기 내용" onChange={vi.fn()} />,
+    );
+    const textarea = getByRole("textbox") as HTMLTextAreaElement;
+
+    expect(textarea.style.height).toBe("0px");
+  });
+
+  it("value 변경 시 height가 새 scrollHeight로 업데이트된다", () => {
+    const { getByRole, rerender } = render(
+      <AutoResizeTextarea value="" onChange={vi.fn()} />,
+    );
+    const textarea = getByRole("textbox") as HTMLTextAreaElement;
+
+    Object.defineProperty(textarea, "scrollHeight", {
+      value: 100,
+      configurable: true,
+    });
+
+    rerender(<AutoResizeTextarea value="내용이 늘어남" onChange={vi.fn()} />);
+
+    expect(textarea.style.height).toBe("100px");
+  });
 });
