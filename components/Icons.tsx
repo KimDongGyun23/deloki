@@ -1,6 +1,7 @@
 import { FC, SVGProps } from "react";
 
 import ChartSvg from "@/public/icons/chart.svg";
+import ChevronSvg from "@/public/icons/chevron.svg";
 import ClipSvg from "@/public/icons/clip.svg";
 import HomeSvg from "@/public/icons/home.svg";
 import LogoSvg from "@/public/icons/logo.svg";
@@ -31,3 +32,4 @@ export const NoteIcon = withSize(NoteSvg);
 export const ClipIcon = withSize(ClipSvg);
 export const SearchIcon = withSize(SearchSvg);
 export const ChartIcon = withSize(ChartSvg);
+export const ChevronIcon = withSize(ChevronSvg);
