@@ -43,7 +43,7 @@ export const noteFormSchema = z.object({
   keyPoints: z.array(keyPointSchema).min(1),
   conceptSections: z.array(conceptSectionSchema).min(1),
   qaPairs: z.array(qaPairSchema).min(1),
-  references: z.array(referenceSchema),
+  references: z.array(referenceSchema).optional().default([]),
 });
 
 export const NOTE_FORM_FIELDS = noteFormSchema.keyof().enum;
