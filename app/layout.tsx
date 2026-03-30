@@ -66,7 +66,7 @@ export default async function RootLayout({
       <body className="bg-background text-foreground flex h-screen flex-col overflow-hidden font-sans antialiased">
         <div className="flex h-full overflow-hidden">
           <Sidebar isDarkMode={isDarkMode} />
-          <main className="flex-1 overflow-hidden">{children}</main>
+          <main className="flex flex-1 flex-col overflow-hidden">{children}</main>
         </div>
       </body>
     </html>
