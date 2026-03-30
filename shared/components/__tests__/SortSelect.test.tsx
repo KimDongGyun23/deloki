@@ -2,7 +2,7 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-import { SORT_OPTIONS } from "@/constants/category";
+import { SORT_OPTIONS } from "@/shared/constants/category";
 
 import { SortSelect } from "../SortSelect";
 

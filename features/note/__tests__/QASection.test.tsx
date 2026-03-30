@@ -6,7 +6,7 @@ import { describe, expect, it, vi } from "vitest";
 import { QASection } from "../components/QASection";
 import { createDefaultNoteFormValues, type NoteFormValues } from "../schemas";
 
-vi.mock("@/components/Icons", () => ({
+vi.mock("@/shared/components/Icons", () => ({
   CloseIcon: ({ size }: { size?: number }) => (
     <svg data-testid="close-icon" data-size={size} />
   ),

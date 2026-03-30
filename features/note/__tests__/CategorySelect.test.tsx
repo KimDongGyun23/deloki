@@ -5,7 +5,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import { CategorySelect } from "../components/CategorySelect";
 import { NOTE_CATEGORIES } from "../constants";
 
-vi.mock("@/components/Icons", () => ({
+vi.mock("@/shared/components/Icons", () => ({
   ChevronIcon: ({ className }: { className?: string }) => (
     <svg data-testid="chevron-icon" className={className} />
   ),

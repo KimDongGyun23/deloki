@@ -7,7 +7,7 @@ import {
   LogoIcon,
   NoteIcon,
   SearchIcon,
-} from "@/components/Icons";
+} from "@/shared/components/Icons";
 
 import { DarkModeToggle } from "./DarkModeToggle";
 import { NavItem } from "./NavItem";

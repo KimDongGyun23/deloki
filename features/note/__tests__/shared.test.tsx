@@ -11,7 +11,7 @@ import {
   SectionTitle,
 } from "../components/shared";
 
-vi.mock("@/components/Icons", () => ({
+vi.mock("@/shared/components/Icons", () => ({
   CloseIcon: ({ size }: { size?: number }) => (
     <svg data-testid="close-icon" data-size={size} />
   ),

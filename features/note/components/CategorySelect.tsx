@@ -2,8 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 
-import { ChevronIcon } from "@/components/Icons";
-import { cn } from "@/lib/cn";
+import { ChevronIcon } from "@/shared/components/Icons";
+import { cn } from "@/shared/lib/cn";
 
 import { NOTE_CATEGORIES, type NoteCategory } from "../constants";
 

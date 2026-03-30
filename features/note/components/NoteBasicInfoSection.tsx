@@ -1,6 +1,6 @@
 import { Controller, useFormContext } from "react-hook-form";
 
-import { cn } from "@/lib/cn";
+import { cn } from "@/shared/lib/cn";
 
 import type { NoteFormValues } from "../schemas";
 import { CategorySelect } from "./CategorySelect";

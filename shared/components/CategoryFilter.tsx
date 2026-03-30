@@ -2,8 +2,8 @@
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-import { CATEGORIES, Category } from "@/constants/category";
-import { cn } from "@/lib/cn";
+import { CATEGORIES, Category } from "@/shared/constants/category";
+import { cn } from "@/shared/lib/cn";
 
 type CategoryFilterProps = {
   /** 현재 선택된 카테고리 — Page의 searchParams에서 주입 */

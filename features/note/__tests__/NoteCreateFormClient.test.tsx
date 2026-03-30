@@ -10,7 +10,7 @@ vi.mock("next/navigation", () => ({
   useRouter: () => ({ push: mockPush }),
 }));
 
-vi.mock("@/components/Icons", () => ({
+vi.mock("@/shared/components/Icons", () => ({
   CloseIcon: () => <svg data-testid="close-icon" />,
   ChevronIcon: ({ className }: { className?: string }) => (
     <svg data-testid="chevron-icon" className={className} />

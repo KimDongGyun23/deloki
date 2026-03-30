@@ -2,7 +2,7 @@
 
 import { Controller, useFieldArray, useFormContext } from "react-hook-form";
 
-import { CloseIcon } from "@/components/Icons";
+import { CloseIcon } from "@/shared/components/Icons";
 
 import {
   createEmptyConceptSection,

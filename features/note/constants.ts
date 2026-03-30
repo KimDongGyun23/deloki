@@ -1,4 +1,4 @@
-import { CATEGORIES, type Category } from "@/constants/category";
+import { CATEGORIES, type Category } from "@/shared/constants/category";
 
 export type NoteCategory = Exclude<Category, "all">;
 

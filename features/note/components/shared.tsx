@@ -1,7 +1,7 @@
 import { PropsWithChildren } from "react";
 
-import { CloseIcon } from "@/components/Icons";
-import { cn } from "@/lib/cn";
+import { CloseIcon } from "@/shared/components/Icons";
+import { cn } from "@/shared/lib/cn";
 
 type ClassNameProps = {
   className?: string;

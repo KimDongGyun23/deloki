@@ -4,9 +4,9 @@ import { useEffect, useRef, useState } from "react";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-import type { CategorySortValue } from "@/constants/category";
-import { SORT_OPTIONS } from "@/constants/category";
-import { cn } from "@/lib/cn";
+import type { CategorySortValue } from "@/shared/constants/category";
+import { SORT_OPTIONS } from "@/shared/constants/category";
+import { cn } from "@/shared/lib/cn";
 
 import { ChevronIcon } from "./Icons";
 

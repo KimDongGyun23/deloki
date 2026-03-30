@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { CATEGORIES } from "@/constants/category";
+import { CATEGORIES } from "@/shared/constants/category";
 
 import {
   MIN_TEXTAREA_ROWS,

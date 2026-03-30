@@ -5,10 +5,14 @@ import { Geist_Mono } from "next/font/google";
 import localFont from "next/font/local";
 import { cookies } from "next/headers";
 
-import { Sidebar } from "@/components/Sidebar/Sidebar";
-import { THEME_COOKIE_KEY, THEME_DARK, THEME_LIGHT } from "@/constants/theme";
+import { Sidebar } from "@/shared/components/Sidebar/Sidebar";
+import {
+  THEME_COOKIE_KEY,
+  THEME_DARK,
+  THEME_LIGHT,
+} from "@/shared/constants/theme";
 
-import "../styles/index.css";
+import "../shared/styles/index.css";
 
 const esamanru = localFont({
   src: [

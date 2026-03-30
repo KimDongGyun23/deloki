@@ -12,7 +12,7 @@ import {
   type NoteFormValues,
 } from "../schemas";
 
-vi.mock("@/components/Icons", () => ({
+vi.mock("@/shared/components/Icons", () => ({
   ChevronIcon: ({ className }: { className?: string }) => (
     <svg data-testid="chevron-icon" className={className} />
   ),
