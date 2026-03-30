@@ -74,13 +74,16 @@ describe("KeyPointsSection", () => {
     await userEvent.click(
       screen.getByRole("button", { name: "+ add more wisdom" }),
     );
-    expect(screen.getAllByRole("textbox")).toHaveLength(2);
+    const inputs = screen.getAllByRole("textbox");
+    await userEvent.type(inputs[0], "A");
+    await userEvent.type(inputs[1], "B");
 
     await userEvent.click(
       screen.getAllByRole("button", { name: "Key Point 제거" })[0],
     );
 
-    expect(screen.getAllByRole("textbox")).toHaveLength(1);
+    expect(screen.queryByDisplayValue("A")).not.toBeInTheDocument();
+    expect(screen.getByDisplayValue("B")).toBeInTheDocument();
   });
 
   it("순서 번호가 1부터 시작한다", () => {
